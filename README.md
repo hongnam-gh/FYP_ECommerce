@@ -45,7 +45,7 @@ http://localhost:5173
 | **Database**                  | MongoDB, Mongoose                | Stores and manages application data, including users, products, shopping carts, orders, inventory, notifications, and membership information. |
 | **Security & Authentication** | JWT, bcrypt, validator           | Supports user registration, authentication, role-based access control, password hashing, and input validation.                                |
 | **Image Management**          | Multer, Cloudinary               | Handles image uploads and cloud-based storage for product images, banners, and user avatars.                                                  |
-| **Real-time Communication**   | Socket.IO                        | Enables real-time notifications, order status updates, and customer–administrator messaging.                                                  |
+| **Real-time Communication**   | Socket.IO                        | Enables real-time notifications, order status updates, and customer–administrator messaging and so on.                                                  |
 | **Online Payment**            | Stripe, MoMo (Simulation)        | Processes online payments and manages the pending checkout workflow.                                                                          |
 | **Email Service**             | Nodemailer                       | Sends password reset emails, order confirmation emails, and other system-generated notifications.                                             |
 | **Social Authentication**     | Google OAuth, Facebook Graph API | Provides user authentication through Google and Facebook accounts.                                                                            |
