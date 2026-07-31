@@ -11,18 +11,25 @@ Controllers: 22
 ### Launch the Backend
 
 cd backend
+
 npm install
+
 npm start
 
 Backend will run at:
+
 http://localhost:4000
 
 ### Launch the Frontend
 
 cd frontend
+
 npm install
+
 npm run dev
+
 Frontend will run at:
+
 http://localhost:5173
 
 
