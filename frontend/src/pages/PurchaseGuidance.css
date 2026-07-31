@@ -1,0 +1,274 @@
+.purchase-guidance-page {
+  min-height: 100vh;
+  padding: 20px 24px;
+  background-color: #f3f3f3;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #111;
+}
+
+.purchase-guidance-card {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #dedede;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, .08);
+}
+
+.purchase-guidance-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: min(560px, calc(100% - 40px));
+  margin: 0 auto;
+  padding-top: 32px;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.purchase-guidance-tabs button {
+  padding: 18px 20px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #888;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.purchase-guidance-tabs button:hover,
+.purchase-guidance-tabs button.active {
+  border-color: #111;
+  color: #111;
+}
+
+.purchase-guidance-header {
+  padding: 72px 24px 58px;
+  text-align: center;
+}
+
+.purchase-guidance-header p {
+  margin: 0 0 18px;
+  color: #777;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.purchase-guidance-header h1 {
+  margin: 0;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
+  letter-spacing: .04em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.purchase-guidance-header span {
+  display: block;
+  margin-top: 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+.purchase-guidance-content {
+  width: min(1030px, calc(100% - 48px));
+  margin: 0 auto;
+  padding-bottom: 90px;
+}
+
+.purchase-guidance-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 8.5;
+  overflow: visible;
+  border: 1px solid #dedede;
+  border-radius: 18px;
+  background: #f6f6f6;
+}
+
+.purchase-guidance-slider > img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: contain;
+  animation: purchaseGuidanceImage .3s ease;
+}
+
+@keyframes purchaseGuidanceImage {
+  from {
+    opacity: .45;
+    transform: scale(.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.purchase-guidance-arrow {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid #111;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 24px;
+  transform: translateY(-50%);
+  transition: .2s ease;
+}
+
+.purchase-guidance-arrow:hover {
+  background: #fff;
+  color: #111;
+}
+
+.purchase-guidance-arrow-left {
+  left: -58px;
+}
+
+.purchase-guidance-arrow-right {
+  right: -58px;
+}
+
+.purchase-guidance-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 22px 0 40px;
+}
+
+.purchase-guidance-dots button {
+  width: 28px;
+  height: 4px;
+  border: 0;
+  border-radius: 999px;
+  background: #d5d5d5;
+  transition: .2s ease;
+}
+
+.purchase-guidance-dots button.active {
+  width: 48px;
+  background: #111;
+}
+
+.purchase-guidance-description {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 30px;
+  padding-top: 34px;
+  border-top: 1px solid #111;
+}
+
+.purchase-guidance-description > span {
+  color: #888;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.purchase-guidance-description h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+}
+
+.purchase-guidance-description p {
+  max-width: 760px;
+  margin-top: 14px;
+  color: #555;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .purchase-guidance-page {
+    padding: 24px 12px;
+  }
+
+  .purchase-guidance-card {
+    border-radius: 16px;
+  }
+
+  .purchase-guidance-tabs {
+    padding-top: 24px;
+  }
+
+  .purchase-guidance-tabs button {
+    padding: 16px 8px;
+    font-size: 11px;
+  }
+
+  .purchase-guidance-header {
+    padding: 58px 20px 44px;
+  }
+
+  .purchase-guidance-header h1 {
+    font-size: 32px;
+  }
+
+  .purchase-guidance-header span {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .purchase-guidance-content {
+    width: calc(100% - 24px);
+    padding-bottom: 60px;
+  }
+
+  .purchase-guidance-slider {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .purchase-guidance-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .purchase-guidance-arrow-left {
+    left: 10px;
+  }
+
+  .purchase-guidance-arrow-right {
+    right: 10px;
+  }
+
+  .purchase-guidance-dots {
+    margin-bottom: 30px;
+  }
+
+  .purchase-guidance-description {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding-top: 26px;
+  }
+
+  .purchase-guidance-description h2 {
+    font-size: 23px;
+  }
+
+  .purchase-guidance-description p {
+    font-size: 14px;
+  }
+}

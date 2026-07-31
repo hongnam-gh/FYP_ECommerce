@@ -1,0 +1,257 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+img,
+video,
+iframe,
+svg {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+.app-page,
+.chung-page,
+.wishlist-page,
+.cart-page,
+.orders-page,
+.place-order-page,
+.track-order-page,
+.product-page,
+.customer-service-page,
+.purchase-guidance-page,
+.faq-page {
+  min-width: 0;
+}
+
+.statistics-chart-scroll,
+.statistics-product-table,
+.admin-order-products,
+.admin-orders-table,
+.approve-history-table,
+.inventory-table,
+.list-table,
+.user-management-list,
+.cart-table,
+.orders-table {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 1024px) {
+  .app-layout {
+    min-height: calc(100vh - 89px);
+    height: auto;
+  }
+
+  .app-page {
+    margin: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .statistics-two-columns,
+  .right-feature-grid,
+  .collection-view-content,
+  .product-layout,
+  .place-order-layout,
+  .cart-layout {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-spacer {
+    height: 76px;
+  }
+
+  .app-layout {
+    display: block;
+  }
+
+  .app-page {
+    width: 100%;
+    margin: 0;
+    padding: 16px;
+    overflow-x: hidden;
+  }
+
+  .chung-page {
+    width: 100%;
+    padding: 32px 16px 64px;
+  }
+
+  .chung-topbar,
+  .statistics-header,
+  .admin-orders-head,
+  .inventory-header,
+  .user-management-header,
+  .wishlist-header,
+  .cart-header,
+  .orders-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .chung-sort,
+  .chung-advanced-filter,
+  .statistics-header-actions,
+  .admin-orders-search,
+  .user-management-toolbar,
+  .inventory-toolbar {
+    width: 100%;
+  }
+
+  .home-collection-grid,
+  .hero-category-grid,
+  .statistics-main-cards,
+  .statistics-operation-cards,
+  .wishlist-grid,
+  .collection-grid,
+  .banner-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .chung-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    row-gap: 42px;
+  }
+
+  .product-size-chart-modal,
+  .confirm-popup,
+  .account-slide,
+  .menu-slide-panel,
+  .advanced-filter-panel {
+    width: min(100vw - 24px, 520px) !important;
+    max-width: calc(100vw - 24px) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-logo {
+    width: 128px;
+    height: 48px;
+  }
+
+  .navbar-icon-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+  }
+
+  .chung-banner {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .chung-banner img {
+    width: 100%;
+    opacity: .66;
+  }
+
+  .chung-banner-overlay {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, .86), rgba(0, 0, 0, .2));
+  }
+
+  .home-collection-grid,
+  .hero-category-grid,
+  .statistics-main-cards,
+  .statistics-operation-cards,
+  .wishlist-grid,
+  .collection-grid,
+  .banner-grid,
+  .chung-product-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-main {
+    height: 58vh;
+  }
+
+  .hero-category-title h2,
+  .home-collection h2 {
+    font-size: clamp(30px, 12vw, 44px);
+  }
+
+  .right-feature {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  .right-feature-grid {
+    display: grid;
+    gap: 12px;
+  }
+
+  .right-feature-video,
+  .right-feature-image {
+    aspect-ratio: 16 / 10;
+  }
+
+  .statistics-panel,
+  .statistics-main-card,
+  .cart-total,
+  .product-info,
+  .product-image-wrap,
+  .place-order-summary,
+  .place-order-form {
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-page {
+    padding: 12px;
+  }
+
+  .chung-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .chung-topbar {
+    margin-bottom: 32px;
+  }
+
+  .chung-filter-title {
+    font-size: 18px;
+  }
+
+  .title {
+    gap: 6px;
+  }
+
+  .title-line {
+    width: 24px;
+  }
+
+  .statistics-product-row,
+  .statistics-table-header,
+  .admin-order-product-row,
+  .approve-history-row,
+  .user-management-row {
+    min-width: 640px;
+  }
+}

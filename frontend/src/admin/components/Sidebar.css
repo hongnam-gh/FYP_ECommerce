@@ -1,0 +1,172 @@
+/* =======================================================
+   ADMIN SIDEBAR
+   Sidebar chính bên trái admin
+======================================================= */
+
+.admin-sidebar {
+  width: 18%;
+  min-width: 230px;
+  height: calc(100vh - 64px);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, .08);
+  background: radial-gradient(circle at top left, rgba(138, 72, 255, .22), transparent 34%), linear-gradient(180deg, #111018 0%, #0b0b10 52%, #07070a 100%);
+  color: #fff;
+  box-shadow: 16px 0 40px rgba(0, 0, 0, .22);
+}
+
+.admin-sidebar-brand {
+  padding: 22px 18px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-sidebar-brand span {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ffffff, #ead7ff);
+  color: #120f18;
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: 0 16px 32px rgba(197, 143, 255, .2);
+}
+
+.admin-sidebar-brand p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .35px;
+  color: #fff;
+}
+
+.admin-sidebar-welcome {
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.admin-sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+  padding: .75rem 12px 1.5rem;
+  font-size: .9375rem;
+}
+
+.admin-sidebar-bottom {
+  margin-top: auto;
+  padding: 1rem 12px 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+}
+
+.admin-sidebar-link,
+.admin-sidebar-logout {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  padding: .85rem .9rem;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  background: transparent;
+  color: rgba(255, 255, 255, .68);
+  text-decoration: none;
+  font-size: .9375rem;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+/* Hover item sidebar */
+.admin-sidebar-link:hover,
+.admin-sidebar-logout:hover {
+  border-color: rgba(255, 255, 255, .1);
+  background: rgba(255, 255, 255, .07);
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.admin-sidebar-link.active {
+  background: linear-gradient(135deg, #ffffff, #f0dcff);
+  color: #14101b;
+  font-weight: 850;
+  box-shadow: 0 18px 36px rgba(203, 150, 255, .18);
+}
+
+.admin-sidebar-link.active::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  width: 4px;
+  height: 26px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffffff, #c88cff);
+  transform: translateY(-50%);
+  box-shadow: 0 0 18px rgba(200, 140, 255, .7);
+}
+
+/* Icon trong sidebar */
+.admin-sidebar-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+  font-size: 16px;
+  transition: .25s ease;
+}
+
+.admin-sidebar-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.admin-sidebar-link:hover .admin-sidebar-icon {
+  background: rgba(255, 255, 255, .16);
+}
+
+.admin-sidebar-link.active .admin-sidebar-icon {
+  background: #15101c;
+  color: #fff;
+}
+
+.admin-sidebar-logout {
+  width: 100%;
+}
+
+/* Text trong sidebar */
+.admin-sidebar-text {
+  display: none;
+  margin: 0;
+}
+
+.admin-sidebar-dot {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #0b0b10;
+  border-radius: 999px;
+  background: #ff3b57;
+  box-shadow: 0 0 0 4px rgba(255, 59, 87, .18), 0 0 18px rgba(255, 59, 87, .6);
+}
+
+.admin-sidebar-link.active .admin-sidebar-dot {
+  border-color: #fff;
+}
+
+@media (min-width: 768px) {
+  .admin-sidebar-text {
+    display: block;
+  }
+}

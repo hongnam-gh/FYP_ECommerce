@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1240" viewBox="0 0 1800 1240">
+  <defs>
+    <style>
+      .bg { fill: #f7f8fa; }
+      text { font-family: Arial, Helvetica, sans-serif; }
+      .title { font-size: 34px; font-weight: 700; fill: #111827; }
+      .subtitle { font-size: 18px; fill: #4b5563; }
+      .phase { fill: #fff; stroke: #e5e7eb; stroke-width: 1.5; rx: 10; filter: url(#shadow); }
+      .phase-title { font-size: 22px; font-weight: 700; fill: #fff; }
+      .phase-index { font-size: 16px; font-weight: 700; fill: #fff; opacity: .82; }
+      .phase-body { font-size: 17px; fill: #1f2937; }
+      .loop-title { font-size: 22px; font-weight: 700; fill: #111827; }
+      .loop-text { font-size: 17px; fill: #4b5563; }
+      .label { font-size: 16px; font-weight: 700; fill: #4b5563; }
+      .caption { font-size: 15px; fill: #6b7280; }
+      .arrow { stroke: #374151; stroke-width: 3; fill: none; marker-end: url(#arrowHead); }
+      .loop { stroke: #111827; stroke-width: 4; fill: none; marker-end: url(#arrowHead); }
+      .loop-soft { stroke: #d1d5db; stroke-width: 22; fill: none; opacity: .36; }
+      .divider { stroke: #e5e7eb; stroke-width: 2; stroke-dasharray: 8 8; }
+      .badge { fill: #111827; }
+      .badge-text { font-size: 15px; font-weight: 700; fill: #fff; }
+    </style>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#111827" flood-opacity=".12"/>
+    </filter>
+    <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#374151"/>
+    </marker>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#43bfd8"/>
+      <stop offset="100%" stop-color="#2e6f95"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#303b78"/>
+      <stop offset="100%" stop-color="#6f2ec4"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d89b2b"/>
+      <stop offset="100%" stop-color="#d84840"/>
+    </linearGradient>
+    <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c9155c"/>
+      <stop offset="100%" stop-color="#7f8c8d"/>
+    </linearGradient>
+  </defs>
+
+  <rect class="bg" width="1800" height="1240"/>
+  <text x="900" y="68" text-anchor="middle" class="title">Rapid Application Development Model</text>
+  <text x="900" y="102" text-anchor="middle" class="subtitle">Iterative prototyping and user-centered software development process</text>
+
+  <!-- Process flow -->
+  <line x1="150" y1="360" x2="1650" y2="360" class="divider"/>
+  <text x="900" y="330" text-anchor="middle" class="label">RAD phases progress quickly from planning to delivery, with iterative prototyping during design and construction</text>
+
+  <!-- Phase 1 -->
+  <rect x="95" y="390" width="360" height="250" class="phase"/>
+  <rect x="95" y="390" width="360" height="70" rx="10" fill="url(#g1)"/>
+  <text x="125" y="434" class="phase-index">01</text>
+  <text x="180" y="434" class="phase-title">Requirements Planning</text>
+  <text x="125" y="505" class="phase-body">• Define business objectives</text>
+  <text x="125" y="540" class="phase-body">• Identify project scope</text>
+  <text x="125" y="575" class="phase-body">• Agree on key requirements</text>
+  <text x="125" y="610" class="phase-body">• Establish constraints</text>
+
+  <!-- Phase 2 -->
+  <path d="M455 515 C492 515 500 515 535 515" class="arrow"/>
+  <rect x="545" y="390" width="330" height="250" class="phase"/>
+  <rect x="545" y="390" width="330" height="70" rx="10" fill="url(#g2)"/>
+  <text x="575" y="434" class="phase-index">02</text>
+  <text x="630" y="434" class="phase-title">User Design</text>
+  <text x="575" y="505" class="phase-body">• Model business processes</text>
+  <text x="575" y="540" class="phase-body">• Create prototypes</text>
+  <text x="575" y="575" class="phase-body">• Review with users</text>
+  <text x="575" y="610" class="phase-body">• Refine design decisions</text>
+
+  <!-- Phase 3 -->
+  <path d="M875 515 C912 515 920 515 955 515" class="arrow"/>
+  <rect x="965" y="390" width="330" height="250" class="phase"/>
+  <rect x="965" y="390" width="330" height="70" rx="10" fill="url(#g3)"/>
+  <text x="995" y="434" class="phase-index">03</text>
+  <text x="1050" y="434" class="phase-title">Construction</text>
+  <text x="995" y="505" class="phase-body">• Build application modules</text>
+  <text x="995" y="540" class="phase-body">• Integrate components</text>
+  <text x="995" y="575" class="phase-body">• Test working increments</text>
+  <text x="995" y="610" class="phase-body">• Incorporate feedback</text>
+
+  <!-- Phase 4 -->
+  <path d="M1295 515 C1332 515 1340 515 1375 515" class="arrow"/>
+  <rect x="1385" y="390" width="320" height="250" class="phase"/>
+  <rect x="1385" y="390" width="320" height="70" rx="10" fill="url(#g4)"/>
+  <text x="1415" y="434" class="phase-index">04</text>
+  <text x="1470" y="434" class="phase-title">Cutover</text>
+  <text x="1415" y="505" class="phase-body">• Final testing</text>
+  <text x="1415" y="540" class="phase-body">• Data conversion</text>
+  <text x="1415" y="575" class="phase-body">• User training</text>
+  <text x="1415" y="610" class="phase-body">• System deployment</text>
+
+  <!-- Iterative RAD loop -->
+  <rect x="390" y="710" width="1020" height="360" class="phase"/>
+  <text x="900" y="760" text-anchor="middle" class="loop-title">Iterative Prototyping and User Feedback</text>
+  <text x="900" y="795" text-anchor="middle" class="loop-text">Design and construction are refined through frequent user review of working prototypes.</text>
+
+  <path class="loop-soft" d="M660 940 C690 810 1110 810 1140 940 C1110 1070 690 1070 660 940"/>
+  <path class="loop" d="M660 940 C690 810 1110 810 1140 940 C1110 1070 690 1070 660 940"/>
+  <circle cx="660" cy="940" r="38" class="badge"/>
+  <text x="660" y="936" text-anchor="middle" class="badge-text">User</text>
+  <text x="660" y="954" text-anchor="middle" class="badge-text">Review</text>
+  <circle cx="900" cy="850" r="38" class="badge"/>
+  <text x="900" y="846" text-anchor="middle" class="badge-text">Rapid</text>
+  <text x="900" y="864" text-anchor="middle" class="badge-text">Prototype</text>
+  <circle cx="1140" cy="940" r="38" class="badge"/>
+  <text x="1140" y="936" text-anchor="middle" class="badge-text">Build</text>
+  <text x="1140" y="954" text-anchor="middle" class="badge-text">Increment</text>
+  <circle cx="900" cy="1030" r="38" class="badge"/>
+  <text x="900" y="1026" text-anchor="middle" class="badge-text">Refine</text>
+  <text x="900" y="1044" text-anchor="middle" class="badge-text">Design</text>
+
+  <path d="M710 640 C710 675 710 675 710 700" class="arrow"/>
+  <path d="M1130 640 C1130 675 1130 675 1130 700" class="arrow"/>
+  <text x="710" y="705" text-anchor="middle" class="label">Prototype</text>
+  <text x="1130" y="705" text-anchor="middle" class="label">Construct</text>
+
+  <!-- Caption -->
+  <text x="900" y="1190" text-anchor="middle" class="caption">Figure 5.3. Phases of the Rapid Application Development Model.</text>
+  <text x="900" y="1214" text-anchor="middle" class="caption">Source: Adapted from Martin (1991) and Pressman &amp; Maxim (2020).</text>
+</svg>

@@ -1,0 +1,93 @@
+/* ===== APP ROOT ===== */
+.app {
+  height: 100vh;
+  overflow: hidden;
+  background: #f9fafb;
+}
+
+.app,
+.app * {
+  scrollbar-width: none;
+}
+
+.app::-webkit-scrollbar,
+.app *::-webkit-scrollbar {
+  display: none;
+}
+
+.admin-auth-app {
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;
+  background: #fff;
+}
+
+/* ===== MAIN LAYOUT ===== */
+.app-layout {
+  display: flex;
+  height: calc(100vh - 89px);
+}
+
+/* ===== COMMON PAGE ===== */
+/* ===== COMMON PAGE ===== */
+.app-page {
+  flex: 1;
+  margin: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: #4b5563;
+  font-size: 1rem;
+  scroll-behavior: smooth;
+}
+
+/* ===== CLIENT CHAT ===== */
+.app-chat-page {
+  flex: 1;
+  height: calc(100vh - 89px);
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .app {
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .app-layout {
+    height: auto;
+    min-height: calc(100vh - 89px);
+  }
+
+  .app-page {
+    margin: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    display: block;
+  }
+
+  .app-page {
+    width: 100%;
+    margin: 0;
+    padding: 16px;
+    overflow-x: hidden;
+  }
+
+  .app-chat-page {
+    height: calc(100vh - 76px);
+  }
+}
+
+@media (max-width: 480px) {
+  .app-page {
+    padding: 12px;
+  }
+}

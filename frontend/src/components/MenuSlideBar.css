@@ -1,0 +1,241 @@
+.menu-slide-overlay {
+  position: fixed;
+  left: 0;
+  top: var(--navbar-height);
+  z-index: 999;
+
+  display: none;
+
+  width: 100%;
+  height: calc(100vh - var(--navbar-height));
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: 0.2s ease;
+}
+
+.menu-slide-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.menu-slide-backdrop {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.menu-slide-panel {
+  position: relative;
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 430px;
+  height: calc(100vh - var(--navbar-height));
+
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000;
+
+  color: #fff;
+
+  box-shadow: 12px 0 35px rgba(0, 0, 0, 0.35);
+
+  transform: translateX(-100%);
+  transition: 0.3s ease;
+}
+
+.menu-slide-panel.open {
+  transform: translateX(0);
+}
+
+.menu-slide-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 24px 28px;
+}
+
+.menu-slide-header p {
+  color: rgba(255, 255, 255, 0.4);
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.menu-slide-header h3 {
+  margin-top: 8px;
+
+  color: #fff;
+
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.menu-slide-header button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: transparent;
+
+  color: #fff;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.menu-slide-header button:hover {
+  transform: rotate(90deg);
+
+  background: #fff;
+  color: #000;
+}
+
+.menu-slide-line {
+  height: 1px;
+  margin: 0 28px;
+
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-slide-line.bottom {
+  margin-top: auto;
+}
+
+.menu-slide-links {
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px;
+}
+
+.menu-slide-links button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 8px;
+
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+
+  color: #fff;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.menu-slide-links button:hover {
+  padding-left: 16px;
+  padding-right: 16px;
+
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-slide-links button span:last-child {
+  opacity: 0;
+  transform: translateX(-8px);
+
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 20px;
+
+  transition: 0.2s ease;
+}
+
+.menu-slide-links button:hover span:last-child {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.menu-slide-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+
+  padding: 24px 28px 40px;
+}
+
+.menu-slide-cards button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+
+  color: #fff;
+  text-align: left;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.menu-slide-cards button:hover {
+  transform: translateY(-4px);
+
+  border-color: #fff;
+  background: #fff;
+  color: #000;
+
+  box-shadow: 0 14px 28px rgba(255, 255, 255, 0.12);
+}
+
+.menu-slide-cards button span:first-child {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.menu-slide-cards button span:last-child {
+  color: rgba(255, 255, 255, 0.4);
+
+  transition: 0.3s ease;
+}
+
+.menu-slide-cards button:hover span:last-child {
+  transform: translateX(4px);
+  color: #000;
+}
+
+.menu-slide-cards button:last-child {
+  border-color: #fff;
+  background: #fff;
+  color: #000;
+}
+
+.menu-slide-cards button:last-child span:last-child {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 1024px) {
+  .menu-slide-overlay {
+    display: block;
+  }
+}

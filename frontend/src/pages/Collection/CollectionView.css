@@ -1,0 +1,12 @@
+.collection-route-state {
+  width: 100%;
+  min-height: 12rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #d1d5db;
+  color: #6b7280;
+  font-size: .8rem;
+  font-weight: 700;
+  text-align: center;
+}

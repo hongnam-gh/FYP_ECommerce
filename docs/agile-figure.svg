@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1240" viewBox="0 0 1800 1240">
+  <defs>
+    <style>
+      .bg { fill: #f7f8fa; }
+      text { font-family: Arial, Helvetica, sans-serif; }
+      .title { font-size: 34px; font-weight: 700; fill: #111827; }
+      .subtitle { font-size: 18px; fill: #4b5563; }
+      .card { fill: #fff; stroke: #e5e7eb; stroke-width: 1.5; rx: 10; filter: url(#shadow); }
+      .head-title { font-size: 22px; font-weight: 700; fill: #fff; }
+      .head-index { font-size: 16px; font-weight: 700; fill: #fff; opacity: .82; }
+      .body { font-size: 17px; fill: #1f2937; }
+      .caption { font-size: 15px; fill: #6b7280; }
+      .label { font-size: 16px; font-weight: 700; fill: #4b5563; }
+      .cycle-soft { fill: none; stroke: #d1d5db; stroke-width: 24; opacity: .36; }
+      .cycle { fill: none; stroke: #111827; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrowHeadDark); }
+      .arrow { stroke: #374151; stroke-width: 3; fill: none; marker-end: url(#arrowHead); }
+      .node { filter: url(#shadow); }
+      .node-text { font-size: 18px; font-weight: 700; fill: #fff; }
+      .node-small { font-size: 14px; font-weight: 700; fill: #fff; opacity: .9; }
+      .center { fill: #fff; stroke: #111827; stroke-width: 3; filter: url(#shadow); }
+      .center-title { font-size: 26px; font-weight: 700; fill: #111827; }
+      .center-text { font-size: 16px; fill: #4b5563; }
+      .divider { stroke: #e5e7eb; stroke-width: 2; stroke-dasharray: 8 8; }
+    </style>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#111827" flood-opacity=".12"/>
+    </filter>
+    <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#374151"/>
+    </marker>
+    <marker id="arrowHeadDark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#111827"/>
+    </marker>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#43bfd8"/>
+      <stop offset="100%" stop-color="#2e6f95"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#303b78"/>
+      <stop offset="100%" stop-color="#6f2ec4"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#99b346"/>
+      <stop offset="100%" stop-color="#16827b"/>
+    </linearGradient>
+    <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d89b2b"/>
+      <stop offset="100%" stop-color="#d84840"/>
+    </linearGradient>
+    <linearGradient id="g5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c9155c"/>
+      <stop offset="100%" stop-color="#7f8c8d"/>
+    </linearGradient>
+    <linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#4b5563"/>
+    </linearGradient>
+  </defs>
+
+  <rect class="bg" width="1800" height="1240"/>
+  <text x="900" y="68" text-anchor="middle" class="title">Agile Software Development Model</text>
+  <text x="900" y="102" text-anchor="middle" class="subtitle">Adaptive cycle of incremental delivery and continuous feedback</text>
+
+  <line x1="150" y1="210" x2="1650" y2="210" class="divider"/>
+  <text x="900" y="180" text-anchor="middle" class="label">Agile repeats short development cycles to deliver usable increments and adapt to changing requirements</text>
+
+  <!-- Inputs and outputs -->
+  <rect x="110" y="470" width="340" height="250" class="card"/>
+  <rect x="110" y="470" width="340" height="70" rx="10" fill="url(#g1)"/>
+  <text x="140" y="514" class="head-index">Input</text>
+  <text x="205" y="514" class="head-title">Product Backlog</text>
+  <text x="140" y="585" class="body">• User stories</text>
+  <text x="140" y="620" class="body">• Prioritized requirements</text>
+  <text x="140" y="655" class="body">• Acceptance criteria</text>
+  <text x="140" y="690" class="body">• Stakeholder priorities</text>
+
+  <rect x="1350" y="470" width="340" height="250" class="card"/>
+  <rect x="1350" y="470" width="340" height="70" rx="10" fill="url(#g6)"/>
+  <text x="1380" y="514" class="head-index">Output</text>
+  <text x="1460" y="514" class="head-title">Product Increment</text>
+  <text x="1380" y="585" class="body">• Working software</text>
+  <text x="1380" y="620" class="body">• Tested features</text>
+  <text x="1380" y="655" class="body">• Reviewable increment</text>
+  <text x="1380" y="690" class="body">• Updated Product Backlog</text>
+
+  <!-- Agile cycle -->
+  <path class="cycle-soft" d="M900 270
+    C1135 270 1270 415 1270 610
+    C1270 805 1135 950 900 950
+    C665 950 530 805 530 610
+    C530 415 665 270 900 270"/>
+  <path class="cycle" d="M900 270
+    C1135 270 1270 415 1270 610
+    C1270 805 1135 950 900 950
+    C665 950 530 805 530 610
+    C530 415 665 270 900 270"/>
+
+  <circle cx="900" cy="610" r="135" class="center"/>
+  <text x="900" y="592" text-anchor="middle" class="center-title">Sprint Cycle</text>
+  <text x="900" y="625" text-anchor="middle" class="center-text">Short iteration that</text>
+  <text x="900" y="650" text-anchor="middle" class="center-text">creates a usable increment</text>
+
+  <circle cx="900" cy="270" r="72" class="node" fill="url(#g1)"/>
+  <text x="900" y="263" text-anchor="middle" class="node-small">01</text>
+  <text x="900" y="282" text-anchor="middle" class="node-text">Sprint</text>
+  <text x="900" y="306" text-anchor="middle" class="node-text">Planning</text>
+
+  <circle cx="1210" cy="440" r="72" class="node" fill="url(#g2)"/>
+  <text x="1210" y="433" text-anchor="middle" class="node-small">02</text>
+  <text x="1210" y="459" text-anchor="middle" class="node-text">Design</text>
+
+  <circle cx="1210" cy="780" r="72" class="node" fill="url(#g3)"/>
+  <text x="1210" y="773" text-anchor="middle" class="node-small">03</text>
+  <text x="1210" y="799" text-anchor="middle" class="node-text">Develop</text>
+
+  <circle cx="900" cy="950" r="72" class="node" fill="url(#g4)"/>
+  <text x="900" y="943" text-anchor="middle" class="node-small">04</text>
+  <text x="900" y="969" text-anchor="middle" class="node-text">Test</text>
+
+  <circle cx="590" cy="780" r="72" class="node" fill="url(#g5)"/>
+  <text x="590" y="773" text-anchor="middle" class="node-small">05</text>
+  <text x="590" y="799" text-anchor="middle" class="node-text">Review</text>
+
+  <circle cx="590" cy="440" r="72" class="node" fill="url(#g6)"/>
+  <text x="590" y="433" text-anchor="middle" class="node-small">06</text>
+  <text x="590" y="459" text-anchor="middle" class="node-text">Adapt</text>
+
+  <!-- Flow connectors -->
+  <path d="M450 595 C490 595 500 565 530 535" class="arrow"/>
+  <text x="500" y="575" text-anchor="middle" class="label">Select work</text>
+  <path d="M1270 610 C1300 610 1310 595 1340 595" class="arrow"/>
+  <text x="1305" y="575" text-anchor="middle" class="label">Deliver</text>
+  <path d="M1350 720 C1235 1060 565 1060 450 720" class="arrow"/>
+  <text x="900" y="1090" text-anchor="middle" class="label">Continuous feedback and changing priorities update the Product Backlog.</text>
+
+  <!-- Detail cards -->
+  <rect x="560" y="1110" width="680" height="72" class="card"/>
+  <text x="590" y="1142" class="body">• Stakeholder collaboration</text>
+  <text x="920" y="1142" class="body">• Inspection and adaptation</text>
+  <text x="590" y="1168" class="body">• Incremental delivery</text>
+  <text x="920" y="1168" class="body">• Flexible response to change</text>
+
+  <!-- Caption -->
+  <text x="900" y="1202" text-anchor="middle" class="caption">Figure 5.4. Phases of the Agile Software Development Model.</text>
+  <text x="900" y="1224" text-anchor="middle" class="caption">Source: Adapted from Beck et al. (2001) and Schwaber &amp; Sutherland (2020).</text>
+</svg>

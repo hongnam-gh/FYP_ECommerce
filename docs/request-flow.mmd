@@ -1,0 +1,29 @@
+flowchart LR
+  Browser[Browser]
+  Frontend[React Frontend]
+  API[Express API]
+  Middleware[Middleware]
+  Routes[Routes]
+  Controllers[Controllers]
+  Services[Services]
+  Models[Mongoose Models]
+  Database[(MongoDB)]
+  External[External Services<br/>Cloudinary / Stripe / MoMo / Email]
+  Response[Response]
+
+  Browser --> Frontend
+  Frontend --> API
+  API --> Middleware
+  Middleware --> Routes
+  Routes --> Controllers
+  Controllers --> Services
+  Services --> Models
+  Models --> Database
+  Services -.-> External
+  Database --> Models
+  Models --> Services
+  External -.-> Services
+  Services --> Controllers
+  Controllers --> Response
+  Response --> Frontend
+  Frontend --> Browser

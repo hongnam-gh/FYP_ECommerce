@@ -1,0 +1,423 @@
+/* ===== THANK YOU MODAL / ORDER SUCCESS POPUP ===== */
+.verify-success-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.4);
+    backdrop-filter: blur(4px);
+    padding: 0 16px;
+}
+
+.verify-success-card {
+    width: 100%;
+    max-width: 448px;
+    border-radius: 24px;
+    background: #fff;
+    padding: 40px 32px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,.25);
+    animation: verifyFadeIn .3s ease-in-out;
+}
+
+@keyframes verifyFadeIn {
+    from { opacity: 0; transform: translateY(12px) scale(.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.verify-success-icon-wrap {
+    margin: 0 auto 24px;
+    display: flex;
+    height: 80px;
+    width: 80px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #dcfce7;
+}
+
+.verify-success-icon {
+    display: flex;
+    height: 56px;
+    width: 56px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 30px;
+}
+
+.verify-success-title {
+    margin-bottom: 12px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.verify-success-text {
+    font-size: 14px;
+    line-height: 24px;
+    color: #6b7280;
+}
+
+.verify-progress-wrap {
+    margin-top: 32px;
+    height: 6px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #f3f4f6;
+}
+
+.verify-progress-bar {
+    height: 100%;
+    width: 100%;
+    transform-origin: left;
+    background: #22c55e;
+    animation: verifyProgress 2s linear forwards;
+}
+
+@keyframes verifyProgress {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
+}
+
+/* ===== MOMO VERIFY PAGE WRAPPER ===== */
+.verify-momo-page {
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 16px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.verify-momo-card {
+    position: relative;
+    width: 100%;
+    max-width: 1024px;
+    overflow: hidden;
+    border-radius: 32px;
+    background: #fff;
+    box-shadow: 0 25px 50px rgba(0,0,0,.25);
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+/* ===== MOMO LEFT BRAND PANEL ===== */
+.verify-momo-brand {
+    position: relative;
+    display: none;
+    min-height: 520px;
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #a50064, #c2187a, #ff4fb3);
+    padding: 40px;
+    color: #fff;
+}
+
+.verify-momo-brand-light {
+    position: absolute;
+    inset: 0;
+    opacity: .2;
+    background: radial-gradient(circle at top left, white, transparent 35%);
+}
+
+.verify-momo-brand-glow {
+    position: absolute;
+    right: -96px;
+    bottom: -96px;
+    height: 288px;
+    width: 288px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.2);
+    filter: blur(32px);
+}
+
+.verify-momo-brand-dot {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    height: 96px;
+    width: 96px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.1);
+}
+
+.verify-momo-brand-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: .25;
+}
+
+.verify-momo-brand-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.verify-momo-brand-logo {
+    margin-bottom: 32px;
+    display: flex;
+    height: 80px;
+    width: 80px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24px;
+    background: rgba(255,255,255,.15);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 25px rgba(0,0,0,.1);
+}
+
+.verify-momo-logo-text {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+}
+
+.verify-momo-brand-title {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.verify-momo-brand-text {
+    max-width: 384px;
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 28px;
+    color: rgba(255,255,255,.8);
+}
+
+.verify-momo-demo-box {
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 24px;
+    background: rgba(255,255,255,.15);
+    backdrop-filter: blur(12px);
+    padding: 20px;
+    font-size: 14px;
+    color: rgba(255,255,255,.85);
+}
+
+.verify-momo-demo-title {
+    font-weight: 500;
+    color: #fff;
+}
+
+.verify-momo-demo-text {
+    margin-top: 8px;
+    color: rgba(255,255,255,.75);
+}
+
+/* ===== MOMO RIGHT FORM PANEL ===== */
+.verify-momo-form-panel {
+    position: relative;
+    padding: 28px;
+}
+
+.verify-momo-close {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    display: flex;
+    height: 40px;
+    width: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #fdf2f8;
+    color: #a50064;
+    transition: .3s;
+}
+
+.verify-momo-close:hover {
+    background: #a50064;
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+.verify-momo-mobile-logo {
+    margin-bottom: 20px;
+    display: flex;
+    height: 64px;
+    width: 64px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 10px 15px rgba(251,207,232,.8);
+}
+
+.verify-momo-mobile-logo-text {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+}
+
+.verify-momo-header {
+    margin-bottom: 32px;
+}
+
+.verify-momo-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #a50064;
+}
+
+.verify-momo-title {
+    margin-top: 8px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.verify-momo-subtitle {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 24px;
+    color: #6b7280;
+}
+
+.verify-momo-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.verify-field-label {
+    margin-bottom: 8px;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.verify-momo-input {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid #fce7f3;
+    background: rgba(253,242,248,.4);
+    padding: 16px 20px;
+    color: #1f2937;
+    outline: none;
+    transition: .3s;
+}
+
+.verify-momo-input::placeholder {
+    color: #9ca3af;
+}
+
+.verify-momo-input:hover {
+    border-color: #f9a8d4;
+}
+
+.verify-momo-input:focus {
+    border-color: #a50064;
+    background: #fff;
+    box-shadow: 0 0 0 4px #fce7f3;
+}
+
+.verify-momo-otp {
+    letter-spacing: .35em;
+}
+
+.verify-momo-otp::placeholder {
+    letter-spacing: normal;
+}
+
+.verify-momo-confirm {
+    width: 100%;
+    margin-top: 12px;
+    border-radius: 16px;
+    background: linear-gradient(to right, #a50064, #e02b91);
+    padding: 16px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 10px 15px rgba(251,207,232,.8);
+    transition: .3s;
+}
+
+.verify-momo-confirm:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px rgba(249,168,212,.8);
+}
+
+.verify-momo-confirm:active {
+    transform: scale(.98);
+}
+
+.verify-momo-back {
+    border-radius: 16px;
+    border: 1px solid #fce7f3;
+    padding: 16px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #a50064;
+    transition: .3s;
+}
+
+.verify-momo-back:hover {
+    border-color: #a50064;
+    background: #fdf2f8;
+}
+
+/* ===== DEFAULT VERIFY LOADING ===== */
+.verify-loading-page {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.verify-spinner {
+    height: 40px;
+    width: 40px;
+    border-radius: 999px;
+    border: 4px solid #e5e7eb;
+    border-top-color: #000;
+    animation: verifySpin 1s linear infinite;
+}
+
+@keyframes verifySpin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 640px) {
+    .verify-momo-form-panel {
+        padding: 40px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .verify-momo-card {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .verify-momo-brand {
+        display: flex;
+    }
+
+    .verify-momo-form-panel {
+        padding: 48px;
+    }
+
+    .verify-momo-mobile-logo {
+        display: none;
+    }
+}

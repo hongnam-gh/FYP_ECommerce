@@ -1,0 +1,519 @@
+.chung-banner {
+    position: relative;
+    width: 98%;
+    aspect-ratio: 5 / 2;
+    margin: 24px auto 0;
+    overflow: hidden;
+    border: 1px solid #9ca3af;
+    background: #111;
+}
+
+.chung-banner img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 62%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 43%;
+}
+
+.chung-banner::after {
+    display: none;
+}
+
+.chung-banner-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    width: 38%;
+    padding: clamp(24px, 5vw, 90px);
+    background: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.chung-banner-overlay p {
+    margin-bottom: 10px;
+    font-size: clamp(10px, 1.2vw, 14px);
+    font-weight: 500;
+    letter-spacing: .24em;
+}
+
+.chung-banner-overlay h1 {
+    font-family: "Prata", serif;
+    font-size: clamp(27px, 4.2vw, 64px);
+    font-weight: 400;
+    line-height: 1.12;
+}
+
+.chung-banner-overlay span {
+    display: block;
+    margin-top: 16px;
+    color: #e5e7eb;
+    font-size: clamp(11px, 1.2vw, 14px);
+    letter-spacing: .04em;
+}
+
+.chung-page {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 98%;
+    margin: 0 auto;
+    padding-top: 70px;
+    padding-bottom: 80px;
+    border-top: 1px solid #e5e7eb;
+    overflow: visible;
+}
+
+.chung-filter-column {
+    min-width: 15rem;
+    flex-shrink: 0;
+}
+
+.chung-filter {
+    background: #fff;
+}
+
+.chung-filter-controls {
+    display: none;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.chung-filter-controls-open {
+    display: flex;
+}
+
+.chung-filter-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.chung-filter-icon {
+    height: 12px;
+}
+
+.chung-filter-icon-active {
+    transform: rotate(90deg);
+}
+
+.chung-new-arrival-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.chung-new-arrival-filter input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.chung-new-arrival-filter > span {
+    position: relative;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #9ca3af;
+    border-radius: 5px;
+    background: #fff;
+    transition: .2s ease;
+}
+
+.chung-new-arrival-filter input:checked + span {
+    border-color: #111827;
+    background: #111827;
+}
+
+.chung-new-arrival-filter input:checked + span::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.chung-new-arrival-filter.locked {
+    cursor: default;
+}
+
+.chung-price-range {
+    margin: 0;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #fff, #f8f8f8);
+    padding: 18px;
+    box-shadow: 0 10px 24px rgba(17, 24, 39, .06);
+}
+
+.chung-price-header,
+.chung-price-header > div,
+.chung-price-values {
+    display: flex;
+    align-items: center;
+}
+
+.chung-price-header {
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.chung-price-header > div {
+    gap: 8px;
+}
+
+.chung-price-header > div > span {
+    width: 4px;
+    height: 16px;
+    border-radius: 999px;
+    background: #111;
+}
+
+.chung-price-header p {
+    color: #111827;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .08em;
+}
+
+.chung-price-header button {
+    color: #9ca3af;
+    font-size: 11px;
+    font-weight: 600;
+    transition: color .2s;
+}
+
+.chung-price-header button:hover {
+    color: #111827;
+}
+
+.chung-price-values {
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.chung-price-values > div {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #fff;
+    padding: 10px 12px;
+}
+
+.chung-price-values small {
+    display: block;
+    color: #9ca3af;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+.chung-price-values b {
+    display: block;
+    overflow: hidden;
+    margin-top: 3px;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+}
+
+.chung-price-values > span {
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+.chung-price-sliders {
+    position: relative;
+    height: 22px;
+    margin-top: 18px;
+}
+
+.chung-price-track,
+.chung-price-progress {
+    position: absolute;
+    top: 9px;
+    height: 4px;
+    border-radius: 999px;
+}
+
+.chung-price-track {
+    left: 0;
+    right: 0;
+    background: #e5e7eb;
+}
+
+.chung-price-progress {
+    background: #111827;
+}
+
+.chung-price-sliders input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 22px;
+    appearance: none;
+    background: none;
+    pointer-events: none;
+}
+
+.chung-price-sliders input::-webkit-slider-thumb {
+    width: 18px;
+    height: 18px;
+    appearance: none;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    background: #111827;
+    box-shadow: 0 2px 8px rgba(17, 24, 39, .28);
+    cursor: grab;
+    pointer-events: auto;
+}
+
+.chung-price-sliders input::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    background: #111827;
+    box-shadow: 0 2px 8px rgba(17, 24, 39, .28);
+    cursor: grab;
+    pointer-events: auto;
+}
+
+.chung-content {
+    flex: 1;
+}
+
+/* ===== TOP BAR: title + select sort ===== */
+.chung-topbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 55px;
+    font-size: 16px;
+}
+
+.chung-topbar .title {
+    margin-bottom: 0;
+}
+
+.chung-sort {
+    appearance: none;
+    width: 100%;
+    height: 52px;
+    margin-top: 0;
+    border: 1px solid #111827;
+    border-radius: 14px;
+    background-color: #111;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    padding: 0 48px 0 18px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 12px 24px rgba(17, 24, 39, .16), inset 0 1px rgba(255, 255, 255, .12);
+    transition: border-color .25s, box-shadow .25s, transform .25s;
+}
+
+.chung-sort:hover {
+    border-color: #374151;
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(17, 24, 39, .22), inset 0 1px rgba(255, 255, 255, .16);
+}
+
+.chung-sort:focus {
+    border-color: #6b7280;
+    box-shadow: 0 0 0 4px rgba(17, 24, 39, .1), 0 14px 28px rgba(17, 24, 39, .2);
+}
+
+.chung-sort option {
+    background: #fff;
+    color: #111827;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: none;
+}
+
+.chung-advanced-filter {
+    width: 100%;
+    min-height: 50px;
+    border: 1px solid #111827;
+    border-radius: 14px;
+    background: #fff;
+    color: #111827;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.chung-advanced-filter:hover {
+    background: #111827;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.chung-product-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 16px;
+    row-gap: 70px;
+}
+
+.chung-product-grid:empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+    border-top: 1px solid #d1d5db;
+    border-bottom: 1px solid #d1d5db;
+    text-align: center;
+}
+
+.chung-product-grid:empty::before {
+    content: 'Nothing found';
+    color: #111;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.chung-product-grid:empty::after {
+    content: 'Try adjusting your search or filters.';
+    margin-top: 12px;
+    color: #9ca3af;
+    font-size: 12px;
+    letter-spacing: .04em;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 640px) {
+    .chung-page {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 40px;
+    }
+
+    .chung-filter-column {
+        align-self: flex-start;
+        z-index: 30;
+        border-right: 1px solid #d1d5db;
+        padding-right: 28px;
+    }
+
+    .chung-filter {
+        max-height: calc(100vh - 112px);
+        overflow-y: auto;
+        scrollbar-width: none;
+    }
+
+    .chung-filter-fixed {
+        z-index: 30;
+        border-right: 1px solid #d1d5db;
+        padding-right: 28px;
+    }
+
+    .chung-filter::-webkit-scrollbar {
+        display: none;
+    }
+
+    .chung-filter-controls {
+        display: flex;
+    }
+
+    .chung-content {
+        padding-left: 15px;
+    }
+
+    .chung-filter-icon {
+        display: none;
+    }
+
+    .chung-topbar {
+        font-size: 24px;
+    }
+
+}
+
+@media (max-width: 639px) {
+    .chung-filter-column {
+        position: sticky;
+        top: 76px;
+        z-index: 30;
+        margin: 0 -12px;
+        padding: 0 12px 10px;
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 12px 24px rgba(17, 24, 39, .06);
+    }
+
+    .chung-filter {
+        max-height: calc(100vh - 96px);
+        overflow-y: auto;
+        scrollbar-width: none;
+    }
+
+    .chung-filter::-webkit-scrollbar {
+        display: none;
+    }
+
+    .chung-banner {
+        aspect-ratio: 4 / 3;
+    }
+
+    .chung-banner img {
+        width: 55%;
+    }
+
+    .chung-banner-overlay {
+        width: 45%;
+        padding: 18px;
+    }
+
+    .chung-banner-overlay span {
+        line-height: 1.5;
+    }
+}
+
+@media (min-width: 768px) {
+    .chung-product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .chung-product-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}

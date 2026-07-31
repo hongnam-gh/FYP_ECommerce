@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="380" viewBox="0 0 1280 380" role="img" aria-labelledby="title desc">
+  <title id="title">Request Flow Diagram</title>
+  <desc id="desc">Black and white request flow from browser to React frontend, Express backend layers, Mongoose models, MongoDB, response, and back to the browser.</desc>
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="6" r="2" fill="#eeeeee"/>
+    </pattern>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L9,5 L1,9 Z" fill="#111"/>
+    </marker>
+    <style>
+      .bg { fill: #fff; }
+      .node { fill: #f7f7f7; stroke: #111; stroke-width: 1.5; rx: 2; }
+      .text { font: 400 12.5px Arial, sans-serif; fill: #111; }
+      .arrow { fill: none; stroke: #111; stroke-width: 1.6; marker-end: url(#arrow); }
+      .return { fill: none; stroke: #111; stroke-width: 1.4; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="380"/>
+  <rect width="1280" height="380" fill="url(#dots)"/>
+
+  <rect x="32" y="158" width="78" height="44" class="node"/>
+  <text x="71" y="185" text-anchor="middle" class="text">Browser</text>
+
+  <rect x="145" y="158" width="118" height="44" class="node"/>
+  <text x="204" y="185" text-anchor="middle" class="text">React Frontend</text>
+
+  <rect x="302" y="138" width="94" height="44" class="node"/>
+  <text x="349" y="165" text-anchor="middle" class="text">Express API</text>
+
+  <rect x="434" y="138" width="96" height="44" class="node"/>
+  <text x="482" y="165" text-anchor="middle" class="text">Middleware</text>
+
+  <rect x="568" y="138" width="76" height="44" class="node"/>
+  <text x="606" y="165" text-anchor="middle" class="text">Routes</text>
+
+  <rect x="682" y="138" width="104" height="44" class="node"/>
+  <text x="734" y="165" text-anchor="middle" class="text">Controllers</text>
+
+  <rect x="824" y="138" width="86" height="44" class="node"/>
+  <text x="867" y="165" text-anchor="middle" class="text">Services</text>
+
+  <rect x="948" y="138" width="112" height="44" class="node"/>
+  <text x="1004" y="165" text-anchor="middle" class="text">Models</text>
+
+  <rect x="1098" y="138" width="88" height="44" class="node"/>
+  <text x="1142" y="165" text-anchor="middle" class="text">MongoDB</text>
+
+  <path class="arrow" d="M110 180 H145"/>
+  <path class="arrow" d="M263 180 C282 180 282 160 302 160"/>
+  <path class="arrow" d="M396 160 H434"/>
+  <path class="arrow" d="M530 160 H568"/>
+  <path class="arrow" d="M644 160 H682"/>
+  <path class="arrow" d="M786 160 H824"/>
+  <path class="arrow" d="M910 160 H948"/>
+  <path class="arrow" d="M1060 160 H1098"/>
+
+  <path class="return" d="M1142 182 C1142 306 205 306 204 202"/>
+  <path class="return" d="M145 180 H110"/>
+</svg>

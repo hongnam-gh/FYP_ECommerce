@@ -1,0 +1,298 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1540" viewBox="0 0 1800 1540">
+  <defs>
+    <style>
+      .bg { fill: #fff; }
+      .root { fill: #e8edf2; stroke: #b9c2cc; stroke-width: 1.5; rx: 8; }
+      .user-head { fill: #43bfd8; }
+      .admin-head { fill: #2e6f95; }
+      .auth { fill: #303b78; }
+      .shop { fill: #99b346; }
+      .collection { fill: #6f2ec4; }
+      .checkout { fill: #d84840; }
+      .order { fill: #7f8c8d; }
+      .account { fill: #7f8c8d; }
+      .support { fill: #c9155c; }
+      .admin-product { fill: #d89b2b; }
+      .admin-order { fill: #16827b; }
+      .admin-system { fill: #c5165a; }
+      .node { stroke: none; rx: 0; }
+      .line { stroke: #202020; stroke-width: 2; fill: none; }
+      .title { font: 700 24px Arial, sans-serif; fill: #111; }
+      .root-text { font: 700 18px Arial, sans-serif; fill: #111; }
+      .head-text { font: 17px Arial, sans-serif; fill: #fff; }
+      .node-text { font: 16px Arial, sans-serif; fill: #fff; }
+      .small { font: 14px Arial, sans-serif; fill: #fff; }
+      .label { font: 13px Arial, sans-serif; fill: #333; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1800" height="1540"/>
+  <text x="900" y="34" text-anchor="middle" class="title">E-Commerce Website Sitemap</text>
+
+  <!-- User site root -->
+  <rect x="760" y="45" width="280" height="58" class="root"/>
+  <text x="900" y="80" text-anchor="middle" class="root-text">User-Side</text>
+  <path d="M900 103 V115" class="line"/>
+  <rect x="795" y="115" width="210" height="58" class="root"/>
+  <text x="900" y="150" text-anchor="middle" class="root-text">Home</text>
+  <path d="M900 173 V185" class="line"/>
+  <path d="M150 185 H1650" class="line"/>
+
+  <!-- User main modules -->
+  <rect x="60" y="200" width="190" height="62" class="node user-head"/>
+  <text x="155" y="236" text-anchor="middle" class="head-text">Authentication</text>
+  <path d="M155 185 V200" class="line"/>
+
+  <rect x="300" y="200" width="190" height="62" class="node user-head"/>
+  <text x="395" y="236" text-anchor="middle" class="head-text">Shop</text>
+  <path d="M395 185 V200" class="line"/>
+
+  <rect x="540" y="200" width="190" height="62" class="node user-head"/>
+  <text x="635" y="236" text-anchor="middle" class="head-text">Collections</text>
+  <path d="M635 185 V200" class="line"/>
+
+  <rect x="780" y="200" width="190" height="62" class="node user-head"/>
+  <text x="875" y="226" text-anchor="middle" class="head-text">Cart &amp;</text>
+  <text x="875" y="248" text-anchor="middle" class="head-text">Checkout</text>
+  <path d="M875 185 V200" class="line"/>
+
+  <rect x="1020" y="200" width="190" height="62" class="node user-head"/>
+  <text x="1115" y="236" text-anchor="middle" class="head-text">Orders</text>
+  <path d="M1115 185 V200" class="line"/>
+
+  <rect x="1260" y="200" width="190" height="62" class="node user-head"/>
+  <text x="1355" y="236" text-anchor="middle" class="head-text">Account</text>
+  <path d="M1355 185 V200" class="line"/>
+
+  <rect x="1500" y="200" width="190" height="62" class="node user-head"/>
+  <text x="1595" y="236" text-anchor="middle" class="head-text">Support</text>
+  <path d="M1595 185 V200" class="line"/>
+
+  <!-- Authentication -->
+  <path d="M155 262 V790" class="line"/>
+  <rect x="70" y="310" width="170" height="58" class="node auth"/>
+  <text x="155" y="344" text-anchor="middle" class="node-text">Login</text>
+  <rect x="70" y="395" width="170" height="58" class="node auth"/>
+  <text x="155" y="429" text-anchor="middle" class="node-text">Sign Up</text>
+  <rect x="70" y="480" width="170" height="58" class="node auth"/>
+  <text x="155" y="504" text-anchor="middle" class="node-text">Forgot</text>
+  <text x="155" y="526" text-anchor="middle" class="node-text">Password</text>
+  <rect x="70" y="565" width="170" height="58" class="node auth"/>
+  <text x="155" y="589" text-anchor="middle" class="node-text">Reset</text>
+  <text x="155" y="611" text-anchor="middle" class="node-text">Password</text>
+  <rect x="70" y="650" width="170" height="58" class="node auth"/>
+  <text x="155" y="684" text-anchor="middle" class="node-text">Google Login</text>
+  <rect x="70" y="735" width="170" height="58" class="node auth"/>
+  <text x="155" y="769" text-anchor="middle" class="node-text">Facebook Login</text>
+
+  <!-- Shop -->
+  <path d="M395 262 V875" class="line"/>
+  <rect x="310" y="310" width="170" height="58" class="node shop"/>
+  <text x="395" y="344" text-anchor="middle" class="node-text">Search</text>
+  <rect x="310" y="395" width="170" height="58" class="node shop"/>
+  <text x="395" y="419" text-anchor="middle" class="node-text">New</text>
+  <text x="395" y="441" text-anchor="middle" class="node-text">Arrivals</text>
+  <rect x="310" y="480" width="170" height="58" class="node shop"/>
+  <text x="395" y="514" text-anchor="middle" class="node-text">Women</text>
+  <rect x="310" y="565" width="170" height="58" class="node shop"/>
+  <text x="395" y="599" text-anchor="middle" class="node-text">Men</text>
+  <rect x="310" y="650" width="170" height="58" class="node shop"/>
+  <text x="395" y="684" text-anchor="middle" class="node-text">Accessories</text>
+  <rect x="310" y="735" width="170" height="58" class="node shop"/>
+  <text x="395" y="759" text-anchor="middle" class="node-text">Product</text>
+  <text x="395" y="781" text-anchor="middle" class="node-text">List</text>
+  <rect x="310" y="820" width="170" height="58" class="node shop"/>
+  <text x="395" y="844" text-anchor="middle" class="node-text">Product</text>
+  <text x="395" y="866" text-anchor="middle" class="node-text">Detail</text>
+
+  <!-- Collections -->
+  <path d="M635 262 V705" class="line"/>
+  <rect x="550" y="310" width="170" height="58" class="node collection"/>
+  <text x="635" y="344" text-anchor="middle" class="node-text">View All</text>
+  <rect x="550" y="395" width="170" height="58" class="node collection"/>
+  <text x="635" y="419" text-anchor="middle" class="node-text">Women</text>
+  <text x="635" y="441" text-anchor="middle" class="node-text">Collections</text>
+  <rect x="550" y="480" width="170" height="58" class="node collection"/>
+  <text x="635" y="504" text-anchor="middle" class="node-text">Men</text>
+  <text x="635" y="526" text-anchor="middle" class="node-text">Collections</text>
+  <rect x="550" y="565" width="170" height="58" class="node collection"/>
+  <text x="635" y="589" text-anchor="middle" class="node-text">Collection</text>
+  <text x="635" y="611" text-anchor="middle" class="node-text">Detail</text>
+  <rect x="550" y="650" width="170" height="58" class="node collection"/>
+  <text x="635" y="674" text-anchor="middle" class="node-text">Product</text>
+  <text x="635" y="696" text-anchor="middle" class="node-text">Detail</text>
+
+  <!-- Cart and Checkout -->
+  <path d="M875 262 V960" class="line"/>
+  <rect x="790" y="310" width="170" height="58" class="node checkout"/>
+  <text x="875" y="344" text-anchor="middle" class="node-text">Cart</text>
+  <rect x="790" y="395" width="170" height="58" class="node checkout"/>
+  <text x="875" y="429" text-anchor="middle" class="node-text">Checkout</text>
+  <rect x="790" y="480" width="170" height="58" class="node checkout"/>
+  <text x="875" y="504" text-anchor="middle" class="small">Shipping</text>
+  <text x="875" y="524" text-anchor="middle" class="small">Address</text>
+  <rect x="790" y="565" width="170" height="58" class="node checkout"/>
+  <text x="875" y="589" text-anchor="middle" class="small">Order</text>
+  <text x="875" y="609" text-anchor="middle" class="small">Summary</text>
+  <rect x="790" y="650" width="170" height="58" class="node checkout"/>
+  <text x="875" y="674" text-anchor="middle" class="small">Payment</text>
+  <text x="875" y="694" text-anchor="middle" class="small">Method</text>
+  <rect x="790" y="735" width="170" height="58" class="node checkout"/>
+  <text x="875" y="769" text-anchor="middle" class="node-text">Stripe</text>
+  <rect x="790" y="820" width="170" height="58" class="node checkout"/>
+  <text x="875" y="854" text-anchor="middle" class="node-text">MoMo</text>
+  <rect x="790" y="905" width="170" height="58" class="node checkout"/>
+  <text x="875" y="929" text-anchor="middle" class="small">Payment</text>
+  <text x="875" y="949" text-anchor="middle" class="small">Verification</text>
+
+  <!-- Orders -->
+  <path d="M1115 262 V620" class="line"/>
+  <rect x="1030" y="310" width="170" height="58" class="node order"/>
+  <text x="1115" y="344" text-anchor="middle" class="node-text">My Orders</text>
+  <rect x="1030" y="395" width="170" height="58" class="node order"/>
+  <text x="1115" y="419" text-anchor="middle" class="node-text">Order</text>
+  <text x="1115" y="441" text-anchor="middle" class="node-text">Details</text>
+  <rect x="1030" y="480" width="170" height="58" class="node order"/>
+  <text x="1115" y="504" text-anchor="middle" class="node-text">Track</text>
+  <text x="1115" y="526" text-anchor="middle" class="node-text">Order</text>
+  <rect x="1030" y="565" width="170" height="58" class="node order"/>
+  <text x="1115" y="589" text-anchor="middle" class="node-text">Cancel</text>
+  <text x="1115" y="611" text-anchor="middle" class="node-text">Order</text>
+
+  <!-- Account -->
+  <path d="M1355 262 V790" class="line"/>
+  <rect x="1270" y="310" width="170" height="58" class="node account"/>
+  <text x="1355" y="344" text-anchor="middle" class="node-text">Profile</text>
+  <rect x="1270" y="395" width="170" height="58" class="node account"/>
+  <text x="1355" y="429" text-anchor="middle" class="node-text">Edit Profile</text>
+  <rect x="1270" y="480" width="170" height="58" class="node account"/>
+  <text x="1355" y="514" text-anchor="middle" class="node-text">Membership</text>
+  <rect x="1270" y="565" width="170" height="58" class="node account"/>
+  <text x="1355" y="589" text-anchor="middle" class="node-text">Saved</text>
+  <text x="1355" y="611" text-anchor="middle" class="node-text">Addresses</text>
+  <rect x="1270" y="650" width="170" height="58" class="node account"/>
+  <text x="1355" y="684" text-anchor="middle" class="node-text">Notifications</text>
+  <rect x="1270" y="735" width="170" height="58" class="node account"/>
+  <text x="1355" y="759" text-anchor="middle" class="node-text">Change</text>
+  <text x="1355" y="781" text-anchor="middle" class="node-text">Password</text>
+
+  <!-- Support -->
+  <path d="M1595 262 V705" class="line"/>
+  <rect x="1510" y="310" width="170" height="58" class="node support"/>
+  <text x="1595" y="344" text-anchor="middle" class="node-text">Customer Chat</text>
+  <rect x="1510" y="395" width="170" height="58" class="node support"/>
+  <text x="1595" y="419" text-anchor="middle" class="node-text">AI</text>
+  <text x="1595" y="441" text-anchor="middle" class="node-text">Chatbot</text>
+  <rect x="1510" y="480" width="170" height="58" class="node support"/>
+  <text x="1595" y="514" text-anchor="middle" class="node-text">FAQ</text>
+  <rect x="1510" y="565" width="170" height="58" class="node support"/>
+  <text x="1595" y="599" text-anchor="middle" class="node-text">Contact</text>
+  <rect x="1510" y="650" width="170" height="58" class="node support"/>
+  <text x="1595" y="684" text-anchor="middle" class="node-text">Purchase Guide</text>
+
+  <!-- Admin root -->
+  <rect x="795" y="1040" width="210" height="58" class="root"/>
+  <text x="900" y="1075" text-anchor="middle" class="root-text">Admin Panel</text>
+  <path d="M900 1098 V1110" class="line"/>
+  <rect x="795" y="1110" width="210" height="48" class="root"/>
+  <text x="900" y="1140" text-anchor="middle" class="root-text">Home</text>
+  <path d="M900 1158 V1168" class="line"/>
+  <path d="M195 1168 H1605" class="line"/>
+
+  <!-- Admin modules -->
+  <rect x="80" y="1180" width="180" height="58" class="node admin-head"/>
+  <text x="170" y="1214" text-anchor="middle" class="head-text">Auth</text>
+  <path d="M170 1168 V1180" class="line"/>
+
+  <rect x="305" y="1180" width="180" height="58" class="node admin-head"/>
+  <text x="395" y="1214" text-anchor="middle" class="head-text">Products</text>
+  <path d="M395 1168 V1180" class="line"/>
+
+  <rect x="530" y="1180" width="180" height="58" class="node admin-head"/>
+  <text x="620" y="1214" text-anchor="middle" class="head-text">Inventory</text>
+  <path d="M620 1168 V1180" class="line"/>
+
+  <rect x="755" y="1180" width="180" height="58" class="node admin-head"/>
+  <text x="845" y="1214" text-anchor="middle" class="head-text">Orders</text>
+  <path d="M845 1168 V1180" class="line"/>
+
+  <rect x="980" y="1180" width="180" height="58" class="node admin-head"/>
+  <text x="1070" y="1214" text-anchor="middle" class="head-text">Collections</text>
+  <path d="M1070 1168 V1180" class="line"/>
+
+  <rect x="1205" y="1180" width="180" height="58" class="node admin-head"/>
+  <text x="1295" y="1214" text-anchor="middle" class="head-text">Banners</text>
+  <path d="M1295 1168 V1180" class="line"/>
+
+  <rect x="1430" y="1180" width="180" height="58" class="node admin-head"/>
+  <text x="1520" y="1205" text-anchor="middle" class="head-text">Users &amp;</text>
+  <text x="1520" y="1227" text-anchor="middle" class="head-text">Messages</text>
+  <path d="M1520 1168 V1180" class="line"/>
+
+  <!-- Admin details -->
+  <path d="M170 1238 V1505" class="line"/>
+  <rect x="80" y="1265" width="180" height="45" class="node auth"/>
+  <text x="170" y="1293" text-anchor="middle" class="small">Admin Login</text>
+  <rect x="80" y="1330" width="180" height="45" class="node auth"/>
+  <text x="170" y="1358" text-anchor="middle" class="small">Admin Sign Up</text>
+
+  <path d="M395 1238 V1505" class="line"/>
+  <rect x="305" y="1265" width="180" height="45" class="node admin-product"/>
+  <text x="395" y="1293" text-anchor="middle" class="small">View Products</text>
+  <rect x="305" y="1330" width="180" height="45" class="node admin-product"/>
+  <text x="395" y="1358" text-anchor="middle" class="small">Add Product</text>
+  <rect x="305" y="1395" width="180" height="45" class="node admin-product"/>
+  <text x="395" y="1423" text-anchor="middle" class="small">Edit Product</text>
+  <rect x="305" y="1460" width="180" height="45" class="node admin-product"/>
+  <text x="395" y="1488" text-anchor="middle" class="small">Delete Product</text>
+
+  <path d="M620 1238 V1505" class="line"/>
+  <rect x="530" y="1265" width="180" height="45" class="node admin-product"/>
+  <text x="620" y="1293" text-anchor="middle" class="small">View Stock</text>
+  <rect x="530" y="1330" width="180" height="45" class="node admin-product"/>
+  <text x="620" y="1358" text-anchor="middle" class="small">Search Stock</text>
+  <rect x="530" y="1395" width="180" height="45" class="node admin-product"/>
+  <text x="620" y="1423" text-anchor="middle" class="small">Filter Stock</text>
+  <rect x="530" y="1460" width="180" height="45" class="node admin-product"/>
+  <text x="620" y="1488" text-anchor="middle" class="small">Update Stock</text>
+
+  <path d="M845 1238 V1505" class="line"/>
+  <rect x="755" y="1265" width="180" height="45" class="node admin-order"/>
+  <text x="845" y="1293" text-anchor="middle" class="small">View Orders</text>
+  <rect x="755" y="1330" width="180" height="45" class="node admin-order"/>
+  <text x="845" y="1358" text-anchor="middle" class="small">Approve Order</text>
+  <rect x="755" y="1395" width="180" height="45" class="node admin-order"/>
+  <text x="845" y="1423" text-anchor="middle" class="small">Reject Order</text>
+  <rect x="755" y="1460" width="180" height="45" class="node admin-order"/>
+  <text x="845" y="1488" text-anchor="middle" class="small">Update Status</text>
+
+  <path d="M1070 1238 V1505" class="line"/>
+  <rect x="980" y="1265" width="180" height="45" class="node admin-order"/>
+  <text x="1070" y="1293" text-anchor="middle" class="small">View Collections</text>
+  <rect x="980" y="1330" width="180" height="45" class="node admin-order"/>
+  <text x="1070" y="1358" text-anchor="middle" class="small">Create Collection</text>
+  <rect x="980" y="1395" width="180" height="45" class="node admin-order"/>
+  <text x="1070" y="1423" text-anchor="middle" class="small">Edit Collection</text>
+  <rect x="980" y="1460" width="180" height="45" class="node admin-order"/>
+  <text x="1070" y="1488" text-anchor="middle" class="small">Assign Products</text>
+
+  <path d="M1295 1238 V1505" class="line"/>
+  <rect x="1205" y="1265" width="180" height="45" class="node admin-system"/>
+  <text x="1295" y="1293" text-anchor="middle" class="small">View Banners</text>
+  <rect x="1205" y="1330" width="180" height="45" class="node admin-system"/>
+  <text x="1295" y="1358" text-anchor="middle" class="small">Add Banner</text>
+  <rect x="1205" y="1395" width="180" height="45" class="node admin-system"/>
+  <text x="1295" y="1423" text-anchor="middle" class="small">Edit Banner</text>
+  <rect x="1205" y="1460" width="180" height="45" class="node admin-system"/>
+  <text x="1295" y="1488" text-anchor="middle" class="small">Delete Banner</text>
+
+  <path d="M1520 1238 V1505" class="line"/>
+  <rect x="1430" y="1265" width="180" height="45" class="node admin-system"/>
+  <text x="1520" y="1293" text-anchor="middle" class="small">View Users</text>
+  <rect x="1430" y="1330" width="180" height="45" class="node admin-system"/>
+  <text x="1520" y="1358" text-anchor="middle" class="small">Edit User</text>
+  <rect x="1430" y="1395" width="180" height="45" class="node admin-system"/>
+  <text x="1520" y="1423" text-anchor="middle" class="small">Customer Messages</text>
+  <rect x="1430" y="1460" width="180" height="45" class="node admin-system"/>
+  <text x="1520" y="1488" text-anchor="middle" class="small">Reply Message</text>
+</svg>
