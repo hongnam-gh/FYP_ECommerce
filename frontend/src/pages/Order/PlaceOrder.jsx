@@ -99,10 +99,20 @@ const PlaceOrder = () => {
 
   const isFormComplete = () => Object.entries(formData).filter(([field]) => field !== 'firstName').every(([, value]) => String(value).trim() !== '')
 
+  const validateDeliveryName = () => {
+    if (formData.firstName.trim() && /\d/.test(formData.firstName.trim())) return 'First name must not contain number.'
+    if (!formData.lastName.trim()) return 'Last name is required.'
+    if (/\d/.test(formData.lastName.trim())) return 'Last name must not contain number.'
+    return ''
+  }
+
   const saveDeliveryInformation = async () => {
     if (isSaving) return
 
     if (!isFormComplete()) return
+
+    const nameError = validateDeliveryName()
+    if (nameError) return toast.error(nameError)
 
     if (savedAddresses.length >= 2) return
 
@@ -186,6 +196,9 @@ const PlaceOrder = () => {
     }
 
     try {
+      const nameError = validateDeliveryName()
+      if (nameError) return toast.error(nameError)
+
       const orderItems = getOrderItems()
 
       if (orderItems.length === 0) {
@@ -269,7 +282,7 @@ const PlaceOrder = () => {
             <div className='place-order-fields'>
               <div className='place-order-row'>
                 <input onChange={onChangeHandler} name='firstName' value={formData.firstName} className='place-order-input' type='text' placeholder='First Name (Optional)' />
-                <input required onChange={onChangeHandler} name='lastName' value={formData.lastName} className='place-order-input' type='text' placeholder='Last Name' />
+                <input onChange={onChangeHandler} name='lastName' value={formData.lastName} className='place-order-input' type='text' placeholder='Last Name' />
               </div>
 
               <input required onChange={onChangeHandler} name='email' value={formData.email} className='place-order-input' type='email' placeholder='Email Address' />

@@ -11,7 +11,14 @@ const listBanners = async (req, res) => {
 
 const saveBanner = async (req, res) => {
   try {
-    res.json(await saveBannerService(req.body, req.file))
+    const result = await saveBannerService(req.body, req.file)
+
+    if (result.success) {
+      req.app.get('io').emit('banner:update', {
+        banner: result.banner
+      })
+    }
+    res.json(result)
   } catch (error) {
     console.log(error)
     res.json({ success: false, message: error.message })
@@ -20,11 +27,18 @@ const saveBanner = async (req, res) => {
 
 const removeBanner = async (req, res) => {
   try {
-    res.json(await removeBannerService(req.body.page))
+    const result = await removeBannerService(req.body.page)
+
+    if (result.success) {
+      req.app.get('io').emit('banner:remove', {
+        page: result.page
+      })
+    }
+
+    res.json(result)
   } catch (error) {
     console.log(error)
     res.json({ success: false, message: error.message })
   }
 }
-
 export { listBanners, removeBanner, saveBanner }

@@ -127,9 +127,9 @@ const Orders = () => {
 
               <div className='cart-empty-content'>
                 <div className='cart-empty-icon'>🧾</div>
-                <h2 className='cart-empty-title'>Nothing in the Cart?</h2>
+                <h2 className='cart-empty-title'>Nothing in the Order?</h2>
                 <p className='cart-empty-sad'>That's sad.</p>
-                <p className='cart-empty-text'>Your Cart is looking empty as hell. Add something clean before checking out.</p>
+                <p className='cart-empty-text'>Your Order is looking empty as hell. Add something clean before checking out.</p>
                 <button type='button' onClick={() => window.location.href = '/'} className='cart-empty-btn'>BACK TO SHOPPING</button>
               </div>
             </div>

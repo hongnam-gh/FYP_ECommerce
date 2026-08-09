@@ -5,12 +5,14 @@ import RelatedProducts from '../../components/RelatedProducts'
 import { FiHeart } from 'react-icons/fi'
 import { TbRulerMeasure } from 'react-icons/tb'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 import useAuth from '../../hooks/useAuth'
 import useCart from '../../hooks/useCart'
 import useProducts from '../../hooks/useProducts'
 import useWishlist from '../../hooks/useWishlist'
 import { backendUrl, currency } from '../../constants/shopConfig'
 import './Product.css'
+import { io } from 'socket.io-client'
 
 const FIT_OPTIONS = [
   { value: 'slim', label: 'Slim Fit', description: 'A closer shape that follows the body and feels sharper.' },
@@ -19,20 +21,19 @@ const FIT_OPTIONS = [
 ]
 
 const SIZE_ORDER = ['S', 'M', 'L', 'XL']
-const ADDING_CART_MIN_DURATION = 450
 
 const SIZE_CHART = {
   Women: [
     { size: 'S', minHeight: 150, maxHeight: 160, minWeight: 40, maxWeight: 48 },
     { size: 'M', minHeight: 155, maxHeight: 165, minWeight: 48, maxWeight: 56 },
-    { size: 'L', minHeight: 160, maxHeight: 170, minWeight: 56, maxWeight: 64 },
-    { size: 'XL', minHeight: 165, maxHeight: 175, minWeight: 64, maxWeight: 75 }
+    { size: 'L', minHeight: 160, maxHeight: 175, minWeight: 56, maxWeight: 66 },
+    { size: 'XL', minHeight: 176, maxHeight: 188, minWeight: 67, maxWeight: 75 }
   ],
   Men: [
     { size: 'S', minHeight: 160, maxHeight: 170, minWeight: 50, maxWeight: 60 },
-    { size: 'M', minHeight: 165, maxHeight: 175, minWeight: 60, maxWeight: 70 },
-    { size: 'L', minHeight: 170, maxHeight: 180, minWeight: 70, maxWeight: 80 },
-    { size: 'XL', minHeight: 175, maxHeight: 188, minWeight: 80, maxWeight: 92 }
+    { size: 'M', minHeight: 165, maxHeight: 174, minWeight: 60, maxWeight: 69 },
+    { size: 'L', minHeight: 175, maxHeight: 180, minWeight: 70, maxWeight: 80 },
+    { size: 'XL', minHeight: 181, maxHeight: 188, minWeight: 81, maxWeight: 92 }
   ]
 }
 
@@ -130,14 +131,11 @@ const Product = () => {
   const [showSizeAvailable, setShowSizeAvailable] = useState(false)
   const [showSizeChartModal, setShowSizeChartModal] = useState(false)
   const [sizeChartUnit, setSizeChartUnit] = useState('cm')
-  const [addSmoke, setAddSmoke] = useState(false)
-  const [isAddingCart, setIsAddingCart] = useState(false)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [bodyScale, setBodyScale] = useState({ height: 170, weight: 55 })
   const [pendingFit, setPendingFit] = useState('')
   const [confirmedFit, setConfirmedFit] = useState('')
   const bodyScaleRef = useRef(null)
-  const addSmokeTimersRef = useRef([])
 
   const fetchProductData = async () => {
     products.map((item) => {
@@ -172,6 +170,8 @@ const Product = () => {
     : (sizeChartUnit === 'cm' ? assets.men_cm : assets.men_inches)
   const minimumHeight = productData?.category === 'Women' ? 155 : 160
   const minimumWeight = productData?.category === 'Women' ? 45 : 60
+  const maximumHeight = productData?.category === 'Women' ? 175 : 190
+  const maximumWeight = productData?.category === 'Women' ? 75 : 90
   const minimumMeasurement = minimumHeight + 'cm / ' + minimumWeight + 'kg'
   const updateBodyScale = (event) => {
     const rect = bodyScaleRef.current?.getBoundingClientRect()
@@ -180,8 +180,8 @@ const Product = () => {
     const x = Math.min(Math.max(event.clientX - rect.left, 0), rect.width)
     const y = Math.min(Math.max(event.clientY - rect.top, 0), rect.height)
 
-    const nextHeight = Math.round(minimumHeight + (x / rect.width) * (190 - minimumHeight))
-    const nextWeight = Math.round(minimumWeight + (1 - y / rect.height) * (90 - minimumWeight))
+    const nextHeight = Math.round(minimumHeight + (x / rect.width) * (maximumHeight - minimumHeight))
+    const nextWeight = Math.round(minimumWeight + (1 - y / rect.height) * (maximumWeight - minimumWeight))
 
     setBodyScale({
       height: nextHeight,
@@ -189,15 +189,61 @@ const Product = () => {
     })
   }
 
+  const clampMeasurement = (field, value) => {
+    const minValue = field === 'height' ? minimumHeight : minimumWeight
+    const maxValue = field === 'height' ? maximumHeight : maximumWeight
+    const numericValue = Number(value)
+
+    if (value === '' || Number.isNaN(numericValue)) return minValue
+
+    return Math.min(Math.max(Math.round(numericValue), minValue), maxValue)
+  }
+
+  const updateBodyScaleInput = (field, value) => {
+    const digits = value.replace(/\D/g, '')
+
+    if (digits === '') {
+      setBodyScale((prev) => ({ ...prev, [field]: '' }))
+      return
+    }
+
+    const numericValue = Number(digits)
+
+    if (Number.isNaN(numericValue)) return
+
+    setBodyScale((prev) => ({
+      ...prev,
+      [field]: numericValue
+    }))
+  }
+
+  const normalizeBodyScaleInput = (field) => {
+    setBodyScale((prev) => ({
+      ...prev,
+      [field]: clampMeasurement(field, prev[field])
+    }))
+  }
+
+  const blockNonNumericInput = (event) => {
+    const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Enter', 'Escape', 'ArrowLeft', 'ArrowRight', 'Home', 'End']
+
+    if (allowedKeys.includes(event.key) || event.ctrlKey || event.metaKey) return
+    if (/^\d$/.test(event.key)) return
+
+    event.preventDefault()
+  }
+
   const startBodyScaleDrag = (event) => {
     updateBodyScale(event)
     event.currentTarget.setPointerCapture(event.pointerId)
   }
 
+  const measuredHeight = clampMeasurement('height', bodyScale.height)
+  const measuredWeight = clampMeasurement('weight', bodyScale.weight)
   const sizeSuggestion = getSizeSuggestion({
     category: productData?.category,
-    height: bodyScale.height,
-    weight: bodyScale.weight,
+    height: measuredHeight,
+    weight: measuredWeight,
     fit: confirmedFit || 'regular',
     availableSizes: productData?.sizes || []
   })
@@ -312,33 +358,9 @@ const Product = () => {
     window.location.href = '/place-order'
   }
 
-  const playAddSmoke = () => {
-    addSmokeTimersRef.current.forEach(clearTimeout)
-    addSmokeTimersRef.current = []
-
-    setAddSmoke(false)
-    addSmokeTimersRef.current.push(setTimeout(() => setAddSmoke(true), 20))
-    addSmokeTimersRef.current.push(setTimeout(() => setAddSmoke(false), 800))
-    window.dispatchEvent(new Event('cart-smoke'))
-  }
-
   const addCartHandler = async () => {
-    if (isAddingCart) return
-
-    setIsAddingCart(true)
-    const startedAt = Date.now()
-
-    try {
-      const added = await addToCart(productData._id, size, selectedSizeStock)
-      if (added) playAddSmoke()
-    } finally {
-      const elapsed = Date.now() - startedAt
-      if (elapsed < ADDING_CART_MIN_DURATION) {
-        await new Promise((resolve) => setTimeout(resolve, ADDING_CART_MIN_DURATION - elapsed))
-      }
-
-      setIsAddingCart(false)
-    }
+    const added = await addToCart(productData._id, size, selectedSizeStock)
+    if (added) toast.success('Added To Cart')
   }
 
   useEffect(() => { fetchProductData() }, [productId, products])
@@ -348,10 +370,10 @@ const Product = () => {
     if (!showBodyScale) return
 
     setBodyScale((prev) => ({
-      height: Math.max(minimumHeight, prev.height),
-      weight: Math.max(minimumWeight, prev.weight)
+      height: clampMeasurement('height', prev.height),
+      weight: clampMeasurement('weight', prev.weight)
     }))
-  }, [showBodyScale, minimumHeight, minimumWeight])
+  }, [showBodyScale, minimumHeight, minimumWeight, maximumHeight, maximumWeight])
 
   useEffect(() => {
     if (!productData || !productData.image || productData.image.length <= 1) return
@@ -368,8 +390,20 @@ const Product = () => {
   }, [productData])
 
   useEffect(() => {
-    return () => addSmokeTimersRef.current.forEach(clearTimeout)
-  }, [])
+    const socket = io(backendUrl, token ? { auth: { token } } : undefined)
+
+    const updateProductStock = ({ inventory }) => {
+      if (String(inventory.productId) !== String(productId)) return
+      setStock(inventory.stock || {})
+    }
+
+    socket.on('inventory:update', updateProductStock)
+
+    return () => {
+      socket.off('inventory:update', updateProductStock)
+      socket.disconnect()
+    }
+  }, [productId, token])
 
   return productData ? (
     <div className='product-page'>
@@ -384,20 +418,20 @@ const Product = () => {
             ))}
           </div>
 
-            <div className='product-thumbs'>
-              {productData.image.map((item, index) => (
-                <img key={index} onClick={() => { setImage(item); setActiveImageIndex(index) }} src={item} alt='' className={`product-thumb ${activeImageIndex === index ? 'product-thumb-active' : ''}`} />
-              ))}
-            </div>
-
-            <div className='product-divider'></div>
-
-            <div className='product-image-wrap'>
-              <img key={activeImageIndex} className='product-image' src={image} alt='' />
-            </div>
+          <div className='product-thumbs'>
+            {productData.image.map((item, index) => (
+              <img key={index} onClick={() => { setImage(item); setActiveImageIndex(index) }} src={item} alt='' className={`product-thumb ${activeImageIndex === index ? 'product-thumb-active' : ''}`} />
+            ))}
           </div>
 
-          <div className='product-info'>
+          <div className='product-divider'></div>
+
+          <div className='product-image-wrap'>
+            <img key={activeImageIndex} className='product-image' src={image} alt='' />
+          </div>
+        </div>
+
+        <div className='product-info'>
           <div className='product-title-row'>
             <h1 className='product-name'>{productData.name}</h1>
             <button type='button' onClick={() => toggleWishlist(productData._id)} className={`product-wishlist-btn ${wished ? 'active' : ''}`}><FiHeart /></button>
@@ -447,7 +481,7 @@ const Product = () => {
           <div className='product-action-row'>
             <div className='product-action-buttons'>
               <button disabled={isSelectedSizeOut} onClick={buyNowHandler} className={`product-buy-btn ${isSelectedSizeOut ? 'product-cart-btn-disabled' : ''}`}>{isSelectedSizeOut ? 'OUT OF STOCK' : 'BUY NOW'}</button>
-              <button disabled={isSelectedSizeOut || isAddingCart} onClick={addCartHandler} className={`product-cart-btn product-cart-btn-${cartButtonTheme} ${addSmoke ? 'product-cart-btn-smoke' : ''} ${isSelectedSizeOut || isAddingCart ? 'product-cart-btn-disabled' : ''}`}>{isSelectedSizeOut ? 'OUT OF STOCK' : isAddingCart ? 'ADDING...' : 'ADD TO CART'}</button>
+              <button disabled={isSelectedSizeOut} onClick={addCartHandler} className={`product-cart-btn product-cart-btn-${cartButtonTheme} ${isSelectedSizeOut ? 'product-cart-btn-disabled' : ''}`}>{isSelectedSizeOut ? 'OUT OF STOCK' : 'ADD TO CART'}</button>
             </div>
 
             {showSizeChart && (
@@ -469,11 +503,11 @@ const Product = () => {
               <div className='product-scale-layout'>
                 <div className='product-scale-wrap'>
                   <span className='product-scale-y-title'>kg</span>
-                  <span className='product-scale-y-max'>90</span>
+                  <span className='product-scale-y-max'>{maximumWeight}</span>
                   <span className='product-scale-y-min'>Min</span>
 
                   <div ref={bodyScaleRef} onPointerDown={startBodyScaleDrag} onPointerMove={(event) => { if (event.buttons === 1) updateBodyScale(event) }} className='product-scale-board'>
-                    <div style={{ left: `${((bodyScale.height - minimumHeight) / (190 - minimumHeight)) * 100}%`, bottom: `${((bodyScale.weight - minimumWeight) / (90 - minimumWeight)) * 100}%` }} className={"product-scale-model product-scale-model-" + productData.category.toLowerCase()}>
+                    <div style={{ left: `${((measuredHeight - minimumHeight) / (maximumHeight - minimumHeight)) * 100}%`, bottom: `${((measuredWeight - minimumWeight) / (maximumWeight - minimumWeight)) * 100}%` }} className={"product-scale-model product-scale-model-" + productData.category.toLowerCase()}>
                       <span className='product-scale-model-head'></span>
                       <span className='product-scale-model-body'></span>
                       <span className='product-scale-model-arm product-scale-model-arm-left'></span>
@@ -485,7 +519,7 @@ const Product = () => {
 
                   <span className='product-scale-x-title'>cm</span>
                   <span className='product-scale-x-min'></span>
-                  <span className='product-scale-x-max'>190</span>
+                  <span className='product-scale-x-max'>{maximumHeight}</span>
                 </div>
 
                 <div className='product-fit-result'>
@@ -493,7 +527,36 @@ const Product = () => {
                     <div className={`choose-your-size choose-your-size-${productData.category.toLowerCase()} product-fit-panel-fade`}>
                       <div className='choose-your-size-head'>
                         <span className='choose-your-size-label'>Choose Your Fit</span>
-                        <span className='choose-your-size-measurement'>{bodyScale.height}cm / {bodyScale.weight}kg</span>
+                        <div className='choose-your-size-measurement'>
+                          <label>
+                            <input
+                              type='text'
+                              inputMode='numeric'
+                              pattern='[0-9]*'
+                              min={minimumHeight}
+                              max={maximumHeight}
+                              value={bodyScale.height}
+                              onKeyDown={blockNonNumericInput}
+                              onChange={(event) => updateBodyScaleInput('height', event.target.value)}
+                              onBlur={() => normalizeBodyScaleInput('height')}
+                            />
+                            <span>cm</span>
+                          </label>
+                          <label>
+                            <input
+                              type='text'
+                              inputMode='numeric'
+                              pattern='[0-9]*'
+                              min={minimumWeight}
+                              max={maximumWeight}
+                              value={bodyScale.weight}
+                              onKeyDown={blockNonNumericInput}
+                              onChange={(event) => updateBodyScaleInput('weight', event.target.value)}
+                              onBlur={() => normalizeBodyScaleInput('weight')}
+                            />
+                            <span>kg</span>
+                          </label>
+                        </div>
                       </div>
 
                       <div className='choose-your-size-content'>
@@ -522,8 +585,8 @@ const Product = () => {
                         <strong>{idealSize}</strong>
                       </div>
                       <div className='product-fit-measures'>
-                        <p><span>Height</span><b>{bodyScale.height} cm</b></p>
-                        <p><span>Weight</span><b>{bodyScale.weight} kg</b></p>
+                        <p><span>Height</span><b>{measuredHeight} cm</b></p>
+                        <p><span>Weight</span><b>{measuredWeight} kg</b></p>
                         <p><span>Base size</span><b>Size {sizeSuggestion.baseSize}</b></p>
                       </div>
                     </div>
@@ -532,8 +595,8 @@ const Product = () => {
               </div>
             </div>
           )}
-          </div>
         </div>
+      </div>
 
       {showSizeChartModal && (
         <div onClick={() => setShowSizeChartModal(false)} className='product-size-chart-overlay'>

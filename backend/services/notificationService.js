@@ -3,7 +3,7 @@ import orderModel from '../models/orderModel.js'
 import waitForApproveModel from '../models/waitForApproveModel.js'
 import rejectedOrderModel from '../models/rejectedOrderModel.js'
 
-// ------ Business Helpers --------
+// ------ --------
 
 const getFirstProduct = (items = []) => {
   const product = items[0]
@@ -15,7 +15,7 @@ const getFirstProduct = (items = []) => {
   }
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const createNotificationService = async ({ userId, orderId = '', productId = '', productImage = '', items = [], type, title, message, status = '' }) => {
   if (!userId || (!orderId && !productId) || !type || !title || !message) return null

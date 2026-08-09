@@ -1,6 +1,6 @@
 import subCategoryModel from '../models/subCategoryModel.js'
 
-// ------ Public Services --------
+// ------ --------
 
 const addSubCategoryService = async ({ name }) => {
   if (!name) return { success: false, message: 'Sub category name is required' }

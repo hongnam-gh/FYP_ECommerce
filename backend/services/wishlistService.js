@@ -2,7 +2,7 @@ import productModel from '../models/productModel.js'
 import userModel from '../models/userModel.js'
 import wishlistModel from '../models/wishlistModel.js'
 
-// ------ Database Helpers --------
+// ------ --------
 
 const getUserOrError = async (userId) => {
   if (!userId) return { error: { success: false, message: 'User not found' } }
@@ -18,7 +18,7 @@ const getWishlistIds = async (userId) => {
   return wishlist.map((item) => item.productId)
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const toggleWishlistService = async ({ userId, itemId }) => {
   const { error } = await getUserOrError(userId)

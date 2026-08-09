@@ -5,7 +5,7 @@ import { sendOrderConfirmationEmail } from './emailService.js'
 import { createNotificationService } from './notificationService.js'
 import { reserveInventoryStock, releaseInventoryStock } from './inventoryStockService.js'
 
-// ------ Public Services --------
+// ------ --------
 
 const createWaitingOrderService = async (orderData) => {
   const newOrder = new waitForApproveModel(orderData)

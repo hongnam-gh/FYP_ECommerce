@@ -1,14 +1,20 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
-  const companyLinks = ['HOME', 'ABOUT', 'DELIVERY', 'PRIVACY POLICY']
+  const companyLinks = [
+    { label: 'HOME', path: '/' },
+    { label: 'ABOUT', path: '/about' },
+    { label: 'DELIVERY', path: '/purchase-guidance' },
+    { label: 'PRIVACY POLICY', path: '/customer-service' }
+  ]
   const footerApps = [
-    { name: 'Facebook', image: assets.footer_app_fb },
-    { name: 'Instagram', image: assets.footer_app_ig },
-    { name: 'Twitter', image: assets.footer_app_twitter },
-    { name: 'YouTube', image: assets.footer_app_yt },
-    { name: 'TikTok', image: assets.footer_app_tik_tok }
+    { name: 'Facebook', image: assets.footer_app_fb, url: 'https://facebook.com' },
+    { name: 'Instagram', image: assets.footer_app_ig, url: 'https://instagram.com' },
+    { name: 'Twitter', image: assets.footer_app_twitter, url: 'https://x.com' },
+    { name: 'YouTube', image: assets.footer_app_yt, url: 'https://youtube.com' },
+    { name: 'TikTok', image: assets.footer_app_tik_tok, url: 'https://tiktok.com' }
   ]
 
   return (
@@ -26,9 +32,9 @@ const Footer = () => {
 
             <div className='mt-7 flex flex-wrap items-center gap-3'>
               {footerApps.map((item) => (
-                <button key={item.name} type='button' aria-label={item.name} className='h-12 w-12 overflow-hidden rounded-md border border-white/35 bg-white/5'>
+                <a key={item.name} href={item.url} target='_blank' rel='noreferrer' aria-label={item.name} className='h-12 w-12 overflow-hidden rounded-md border border-white/35 bg-white/5'>
                   <img src={item.image} alt={item.name} className='h-full w-full object-cover' />
-                </button>
+                </a>
               ))}
             </div>
           </div>
@@ -37,8 +43,8 @@ const Footer = () => {
             <p className='mb-5 text-sm font-semibold tracking-[0.3em] text-white'>COMPANY</p>
             <ul className='flex flex-col gap-3 text-sm text-white/60'>
               {companyLinks.map((item) => (
-                <li key={item} className='w-fit cursor-pointer'>
-                  {item}
+                <li key={item.label} className='w-fit cursor-pointer'>
+                  <Link to={item.path}>{item.label}</Link>
                 </li>
               ))}
             </ul>

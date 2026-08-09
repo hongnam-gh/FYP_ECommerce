@@ -56,10 +56,32 @@ const Add = ({ token }) => {
     return ''
   }
 
+  const validateName = (value) => {
+    if (!value.trim()) return 'Product Name is required.'
+    if (/\d/.test(value.trim())) return 'Product name must not contain number.'
+    return ''
+  }
+
   const validateCode = (value) => {
     if (!value.trim()) return 'Product code is required.'
     if (!/^[A-Z0-9]+$/.test(value.trim())) return 'Product code can only contain uppercase letters and numbers.'
     return ''
+  }
+
+  const isProductFormEmpty = () => {
+    return !image1 &&
+      !image2 &&
+      !image3 &&
+      !image4 &&
+      !name.trim() &&
+      !code.trim() &&
+      !description.trim() &&
+      !price &&
+      !collectionId &&
+      !newarrival &&
+      selectedMaterials.length === 0 &&
+      selectedColors.length === 0 &&
+      sizes.length === 0
   }
 
   const fetchCategories = async () => {
@@ -328,8 +350,12 @@ const Add = ({ token }) => {
     e.preventDefault()
 
     try {
+      if (isProductFormEmpty()) return toast.error('Please fill out all information')
+
       if (!image1 || !image2 || !image3 || !image4) return toast.error('Please upload all 4 product images before adding this product.')
-      if (!name.trim()) return toast.error('Product name is required.')
+
+      const NameError = validateName(name)
+      if (NameError) return toast.error(NameError)
 
       const codeError = validateCode(code)
       if (codeError) return toast.error(codeError)

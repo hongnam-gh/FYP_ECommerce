@@ -1,6 +1,6 @@
 import inventoryModel from '../models/inventoryModel.js'
 
-// ------ Public Services --------
+// ------ --------
 
 const releaseInventoryStock = async (items) => {
   for (const item of items) {

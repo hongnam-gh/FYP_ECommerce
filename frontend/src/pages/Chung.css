@@ -8,6 +8,10 @@
     background: #111;
 }
 
+.chung-banner-empty {
+    background: #000;
+}
+
 .chung-banner img {
     position: absolute;
     top: 0;
@@ -36,6 +40,10 @@
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
+}
+
+.chung-banner-empty .chung-banner-overlay {
+    width: 100%;
 }
 
 .chung-banner-overlay p {

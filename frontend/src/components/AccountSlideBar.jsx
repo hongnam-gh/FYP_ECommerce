@@ -19,6 +19,11 @@ const AccountSlideBar = ({ open, onClose, onLogout, user, socialProvider, accoun
   const rankKey = rankName.toLowerCase()
   const totalSpent = `${currency}${Number(accountStats?.totalSpent || 0).toLocaleString('en-US', { maximumFractionDigits: 2 })}`
 
+  const setDefaultAvatar = (event) => {
+    event.currentTarget.onerror = null
+    event.currentTarget.src = assets.default_avatar
+  }
+
   const goPage = (path) => {
     onClose()
     window.location.href = path
@@ -39,7 +44,7 @@ const AccountSlideBar = ({ open, onClose, onLogout, user, socialProvider, accoun
         <div className='account-slide-content'>
           <div className={`account-slide-profile rank-${rankKey}`} style={{ backgroundImage: `url(${rankBackgrounds[rankKey] || assets.standard_rank})` }}>
             <div role={!providerName ? 'button' : undefined} tabIndex={!providerName ? 0 : undefined} onClick={() => !providerName && !avatarUploading && !avatarDeleting && avatarInputRef.current?.click()} onKeyDown={(event) => { if (!providerName && event.key === 'Enter') avatarInputRef.current?.click() }} className={`account-slide-avatar ${!providerName ? 'editable' : ''} ${avatarUploading || avatarDeleting ? 'loading' : ''}`}>
-              <img src={user?.avatar || assets.default_avatar} alt='User avatar' />
+              <img referrerPolicy='no-referrer' onError={setDefaultAvatar} src={user?.avatar || assets.default_avatar} alt='User avatar' />
               {providerName && <span className={`account-slide-avatar-tick ${socialProvider}`}><FiCheck /></span>}
               {!providerName && user?.avatar && <button type='button' onClick={(event) => { event.stopPropagation(); onDeleteAvatar() }} disabled={avatarDeleting} className='account-slide-avatar-delete' title='Delete avatar'>×</button>}
             </div>

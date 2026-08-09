@@ -59,7 +59,6 @@ const Navbar = () => {
   const [activeMenu, setActiveMenu] = useState('New Arrivals')
   const [stockData, setStockData] = useState({})
   const [cartStockLoaded, setCartStockLoaded] = useState(false)
-  const [cartSmoke, setCartSmoke] = useState(false)
   const [notificationOpen, setNotificationOpen] = useState(false)
   const [notifications, setNotifications] = useState([])
   const [userAvatar, setUserAvatar] = useState('')
@@ -69,7 +68,6 @@ const Navbar = () => {
   const [avatarUploading, setAvatarUploading] = useState(false)
   const [avatarDeleting, setAvatarDeleting] = useState(false)
   const [accountOpen, setAccountOpen] = useState(false)
-  const cartSmokeTimersRef = useRef([])
   const { showSearch, setShowSearch } = useSearch()
   const { token, setToken } = useAuth()
   const { products } = useProducts()
@@ -77,28 +75,16 @@ const Navbar = () => {
   const unreadNotificationCount = notifications.filter((notification) => !notification.read).length
   const rankKey = (accountStats?.rank || 'Standard').toLowerCase()
 
+  const setDefaultAvatar = (event) => {
+    event.currentTarget.onerror = null
+    event.currentTarget.src = assets.default_avatar
+  }
+
   useEffect(() => {
     const closeOnEsc = (e) => { if (e.key === 'Escape') { setMenuOpen(false); setShowSearch(false); setNotificationOpen(false); setAccountOpen(false) } }
     window.addEventListener('keydown', closeOnEsc)
     return () => window.removeEventListener('keydown', closeOnEsc)
   }, [setShowSearch])
-
-  useEffect(() => {
-    const showCartSmoke = () => {
-      cartSmokeTimersRef.current.forEach(clearTimeout)
-      cartSmokeTimersRef.current = []
-
-      setCartSmoke(false)
-      cartSmokeTimersRef.current.push(setTimeout(() => setCartSmoke(true), 20))
-      cartSmokeTimersRef.current.push(setTimeout(() => setCartSmoke(false), 900))
-    }
-
-    window.addEventListener('cart-smoke', showCartSmoke)
-    return () => {
-      window.removeEventListener('cart-smoke', showCartSmoke)
-      cartSmokeTimersRef.current.forEach(clearTimeout)
-    }
-  }, [])
 
   const logout = () => {
     window.location.href = '/login'
@@ -305,11 +291,19 @@ const Navbar = () => {
       setNotifications((prev) => [notification, ...prev.filter((item) => item._id !== notification._id)])
       window.dispatchEvent(new CustomEvent('order-status-updated', { detail: { notification } }))
     }
+    const updateCartStock = ({ inventory }) => {
+      setStockData((prev) => ({
+        ...prev,
+        [inventory.productId]: inventory.stock || {}
+      }))
+    }
 
     socket.on('notification:new', addNotification)
+    socket.on('inventory:update', updateCartStock)
 
     return () => {
       socket.off('notification:new', addNotification)
+      socket.off('inventory:update', updateCartStock)
       socket.disconnect()
     }
   }, [token])
@@ -509,7 +503,7 @@ const Navbar = () => {
           <div className='navbar-user'>
             {token ? (
               <button type='button' onClick={openAccount} style={{ '--navbar-rank-color': rankColors[rankKey] || rankColors.standard }} className={`navbar-avatar-btn ${accountOpen ? 'active' : ''}`} title={`${accountStats?.rank || 'Standard'} Membership`}>
-                <img src={userAvatar || assets.default_avatar} alt='User avatar' />
+                <img referrerPolicy='no-referrer' onError={setDefaultAvatar} src={userAvatar || assets.default_avatar} alt='User avatar' />
               </button>
             ) : (
               <button type='button' onClick={() => window.location.href = '/login'} className='navbar-icon-btn'><FiUser /></button>
@@ -518,15 +512,8 @@ const Navbar = () => {
 
           {/* Cart preview */}
           <div onMouseEnter={() => { setShowSearch(false); setNotificationOpen(false); setAccountOpen(false) }} className='chat-auto-close navbar-cart'>
-            <div onClick={() => window.location.href = '/cart'} className={`navbar-icon-btn navbar-cart-icon ${cartSmoke ? 'navbar-cart-smoke-active' : ''}`}>
+            <div onClick={() => window.location.href = '/cart'} className='navbar-icon-btn navbar-cart-icon'>
               <FiShoppingCart />
-              {cartSmoke && (
-                <div className='navbar-cart-smoke'>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              )}
               <p>{getCartCount(cartItems)}</p>
             </div>
 

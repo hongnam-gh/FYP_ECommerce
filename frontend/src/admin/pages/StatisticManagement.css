@@ -183,7 +183,7 @@
   min-width: 0;
   border: 1px solid #e5e7eb;
   border-radius: .85rem;
-  background: #f9fafb;
+  background: #f3f4f6;
   padding: .85rem;
 }
 
@@ -282,25 +282,10 @@
 }
 
 .statistics-chart {
-  display: block;
+  position: relative;
   width: 100%;
   min-width: 42rem;
-  height: auto;
-}
-
-.statistics-chart-point circle {
-  cursor: pointer;
-}
-
-.statistics-chart-tooltip {
-  pointer-events: none;
-  opacity: 0;
-  transform-box: fill-box;
-  transition: opacity .15s;
-}
-
-.statistics-chart-point:hover .statistics-chart-tooltip {
-  opacity: 1;
+  height: 17.5rem;
 }
 
 .statistics-two-columns {

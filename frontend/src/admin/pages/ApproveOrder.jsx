@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { io } from 'socket.io-client'
 import { FiCalendar, FiClock, FiMail, FiMapPin, FiPhone } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { assets } from '../../assets/assets'
@@ -44,7 +45,7 @@ const getOrderHeaderGradient = (orderId) => {
   return `linear-gradient(rgba(255, 255, 255, .56), rgba(255, 255, 255, .56)), url(${orderGradients[gradientIndex]})`
 }
 
-const ApproveOrder = ({ token, updateApprovalAlert, socket }) => {
+const ApproveOrder = ({ token, updateApprovalAlert }) => {
   const navigate = useNavigate()
   const [orders, setOrders] = useState([])
   const [rejectOrderId, setRejectOrderId] = useState('')
@@ -128,11 +129,16 @@ const ApproveOrder = ({ token, updateApprovalAlert, socket }) => {
   }, [token])
 
   useEffect(() => {
-    if (!socket) return
+    if (!token) return
+
+    const socket = io(backendUrl, { auth: { token } })
 
     socket.on('admin-orders:update', fetchWaitingOrders)
-    return () => socket.off('admin-orders:update', fetchWaitingOrders)
-  }, [socket, token])
+    return () => {
+      socket.off('admin-orders:update', fetchWaitingOrders)
+      socket.disconnect()
+    }
+  }, [token])
 
   return (
     <div className='admin-orders-page'>

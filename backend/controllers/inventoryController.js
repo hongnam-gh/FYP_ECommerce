@@ -20,7 +20,13 @@ const singleInventory = async (req, res) => {
 
 const updateInventory = async (req, res) => {
   try {
-    res.json(await updateInventoryService(req.body.productId, req.body.stock))
+    const result = await updateInventoryService(req.body.productId, req.body.stock)
+    if (result.success) {
+      req.app.get('io').emit('inventory:update', {
+        inventory: result.inventory
+      })
+    }
+    res.json(result)
   } catch (error) {
     console.error(error)
     res.json({ success: false, message: error.message })

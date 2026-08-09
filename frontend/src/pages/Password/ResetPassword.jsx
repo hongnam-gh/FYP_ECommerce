@@ -5,8 +5,13 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
 import { backendUrl } from '../../constants/shopConfig'
-import { queueAuthSuccessToast } from '../../utils/authToast'
 import './ResetPassword.css'
+
+const authToastKey = 'authSuccessToast'
+
+const queueAuthSuccessToast = (message) => {
+  sessionStorage.setItem(authToastKey, message)
+}
 
 const ResetPassword = () => {
   const { token } = useParams()

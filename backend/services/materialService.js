@@ -1,6 +1,6 @@
 import materialModel from '../models/materialModel.js'
 
-// ------ Public Services --------
+// ------ --------
 
 const addMaterialService = async ({ name }) => {
   if (!name) return { success: false, message: 'Material name is required' }

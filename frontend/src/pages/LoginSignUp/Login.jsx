@@ -7,8 +7,19 @@ import useAuth from '../../hooks/useAuth'
 import useSocialAuth from '../../hooks/useSocialAuth'
 import { mergeGuestCart } from '../../hooks/useCart'
 import { backendUrl } from '../../constants/shopConfig'
-import { consumeAuthSuccessToast, queueAuthSuccessToast } from '../../utils/authToast'
 import './Login.css'
+
+const authToastKey = 'authSuccessToast'
+
+const queueAuthSuccessToast = (message) => {
+  sessionStorage.setItem(authToastKey, message)
+}
+
+const consumeAuthSuccessToast = () => {
+  const message = sessionStorage.getItem(authToastKey)
+  if (message) sessionStorage.removeItem(authToastKey)
+  return message
+}
 
 const Login = () => {
   const { token, setToken } = useAuth()

@@ -7,7 +7,7 @@ import inventoryModel from '../models/inventoryModel.js'
 import wishlistModel from '../models/wishlistModel.js'
 import cartModel from '../models/cartModel.js'
 
-// ------ Business Helpers --------
+// ------ --------
 
 const startOfDay = (date) => new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime()
 const dateKey = (value) => {
@@ -20,7 +20,7 @@ const percentageChange = (current, previous) => {
   return Number((((current - previous) / previous) * 100).toFixed(1))
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const getStatisticsService = async () => {
   const [orders, waitingOrders, rejectedOrders, customers, products, inventories, wishlistItems, cartItems] = await Promise.all([
@@ -87,7 +87,7 @@ const getStatisticsService = async () => {
       trendItem.orders += 1
     }
 
-    ;(order.items || []).forEach((item) => {
+    ; (order.items || []).forEach((item) => {
       const quantity = Number(item.quantity || 0)
       const price = Number(item.price || 0)
       const productId = String(item._id || item.productId || item.name)
@@ -177,7 +177,10 @@ const getStatisticsService = async () => {
     orderStatuses: [...orderStatuses.entries()].map(([name, value]) => ({ name, value })),
     paymentMethods: [...paymentMethods.entries()].map(([name, value]) => ({ name, value })),
     categorySales: [...categorySales.values()].sort((a, b) => b.revenue - a.revenue),
-    topProducts: [...productSales.values()].sort((a, b) => b.units - a.units).slice(0, 8),
+    topProducts: [...productSales.values()]
+      .filter((item) => item.code)
+      .sort((a, b) => b.units - a.units)
+      .slice(0, 8),
     inventoryAlerts: [...outOfStockItems, ...lowStockItems].slice(0, 8),
     topWishlist: [...wishlistMap.values()].sort((a, b) => b.count - a.count).slice(0, 6),
     recentOrders

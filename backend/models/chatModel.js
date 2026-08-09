@@ -11,6 +11,7 @@ const chatSchema = new mongoose.Schema({
       date: { type: Number, required: true }
     }
   ],
+  adminUnread: { type: Boolean, default: false },
   status: { type: String, default: 'open' },
   date: { type: Number, required: true }
 })

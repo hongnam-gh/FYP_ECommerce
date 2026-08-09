@@ -2,9 +2,13 @@ import React, { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { FiActivity, FiAlertTriangle, FiBox, FiClock, FiDollarSign, FiHeart, FiPackage, FiShoppingBag, FiShoppingCart, FiTrendingDown, FiTrendingUp, FiUsers, FiXCircle } from 'react-icons/fi'
+import { Chart as ChartJS, CategoryScale, Filler, LinearScale, LineElement, PointElement, Tooltip } from 'chart.js'
+import { Line } from 'react-chartjs-2'
 import { assets } from '../../assets/assets'
 import { backendUrl, currency } from '../App'
 import './StatisticManagement.css'
+
+ChartJS.register(CategoryScale, Filler, LinearScale, LineElement, PointElement, Tooltip)
 
 const formatNumber = (value) => new Intl.NumberFormat('en-US').format(Math.round(Number(value || 0)))
 const formatMoney = (value) => `${currency}${new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(Number(value || 0))}`
@@ -17,58 +21,67 @@ const formatChartDate = (value, showYear = false) => {
   return showYear ? `${day}/${month}/${year}` : `${day}/${month}`
 }
 const SalesChart = ({ data }) => {
-  const width = Math.max(900, (data.length * 36) + 82)
-  const height = 280
-  const padding = { top: 22, right: 20, bottom: 42, left: 62 }
-  const chartWidth = width - padding.left - padding.right
-  const chartHeight = height - padding.top - padding.bottom
-  const maxRevenue = Math.max(...data.map((item) => Number(item.revenue || 0)), 1)
-  const points = data.map((item, index) => {
-    const x = padding.left + (data.length === 1 ? chartWidth / 2 : (index / (data.length - 1)) * chartWidth)
-    const y = padding.top + chartHeight - ((Number(item.revenue || 0) / maxRevenue) * chartHeight)
-    return { ...item, x, y }
-  })
-  const linePoints = points.map((item) => `${item.x},${item.y}`).join(' ')
-  const areaPath = points.length > 0 ? `M ${points[0].x} ${padding.top + chartHeight} L ${points.map((item) => `${item.x} ${item.y}`).join(' L ')} L ${points[points.length - 1].x} ${padding.top + chartHeight} Z` : ''
-  const gridLines = Array.from({ length: 5 }, (_, index) => {
-    const value = maxRevenue - ((maxRevenue / 4) * index)
-    const y = padding.top + ((chartHeight / 4) * index)
-    return { value, y }
-  })
+  const chartData = {
+    labels: data.map((item) => formatChartDate(item.date)),
+    datasets: [
+      {
+        label: 'Revenue',
+        data: data.map((item) => Number(item.revenue || 0)),
+        borderColor: '#111827',
+        backgroundColor: 'rgba(17, 24, 39, .12)',
+        pointBackgroundColor: '#fff',
+        pointBorderColor: '#111827',
+        pointBorderWidth: 2,
+        pointHoverRadius: 6,
+        pointRadius: 4,
+        borderWidth: 3,
+        fill: true,
+        tension: .35
+      }
+    ]
+  }
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { intersect: false, mode: 'index' },
+    plugins: {
+      tooltip: {
+        displayColors: false,
+        callbacks: {
+          title: (items) => {
+            const item = data[items[0].dataIndex]
+            return formatChartDate(item.date, true)
+          },
+          label: (item) => {
+            const row = data[item.dataIndex]
+            return `${formatMoney(row.revenue)} · ${row.orders} orders · ${row.units} items`
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        ticks: { color: '#9ca3af', font: { size: 10 } }
+      },
+      y: {
+        beginAtZero: true,
+        grid: { color: '#e5e7eb', borderDash: [4, 6] },
+        ticks: {
+          color: '#9ca3af',
+          font: { size: 10 },
+          callback: (value) => formatMoney(value)
+        }
+      }
+    }
+  }
 
   return (
     <div className='statistics-chart-scroll'>
-      <svg className='statistics-chart' style={{ minWidth: `${width}px` }} viewBox={`0 0 ${width} ${height}`} role='img' aria-label='Approved order sales by day'>
-        <defs>
-          <linearGradient id='statisticsArea' x1='0' y1='0' x2='0' y2='1'>
-            <stop offset='0%' stopColor='#111827' stopOpacity='.2' />
-            <stop offset='100%' stopColor='#111827' stopOpacity='0' />
-          </linearGradient>
-        </defs>
-
-        {gridLines.map((line, index) => (
-          <g key={index}>
-            <line x1={padding.left} y1={line.y} x2={width - padding.right} y2={line.y} stroke='#e5e7eb' strokeDasharray='4 6' />
-            <text x={padding.left - 12} y={line.y + 4} textAnchor='end' fill='#9ca3af' fontSize='10'>{formatMoney(line.value)}</text>
-          </g>
-        ))}
-
-        {areaPath && <path d={areaPath} fill='url(#statisticsArea)' />}
-        {points.length > 0 && <polyline points={linePoints} fill='none' stroke='#111827' strokeWidth='3' strokeLinecap='round' strokeLinejoin='round' />}
-
-        {points.map((point) => (
-          <g className='statistics-chart-point' key={point.date}>
-            <circle cx={point.x} cy={point.y} r='4' fill='#fff' stroke='#111827' strokeWidth='2'>
-              <title>{`${formatChartDate(point.date, true)}: ${formatMoney(point.revenue)} · ${point.orders} orders · ${point.units} items`}</title>
-            </circle>
-            <g className='statistics-chart-tooltip' transform={`translate(${Math.min(Math.max(point.x, padding.left + 45), width - padding.right - 45)} ${Math.max(point.y - 34, 4)})`}>
-              <rect x='-45' width='90' height='24' rx='5' fill='#6b7280' />
-              <text y='15.5' textAnchor='middle' fill='#fff' fontSize='9' fontWeight='600'>{formatMoney(point.revenue)}</text>
-            </g>
-            <text x={point.x} y={height - 15} textAnchor='middle' fill='#9ca3af' fontSize='9'>{formatChartDate(point.date)}</text>
-          </g>
-        ))}
-      </svg>
+      <div className='statistics-chart'>
+        <Line data={chartData} options={options} />
+      </div>
     </div>
   )
 }

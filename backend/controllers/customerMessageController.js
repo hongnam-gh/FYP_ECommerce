@@ -1,10 +1,11 @@
-import { sendCustomerMessageService, getAllCustomerMessagesService, startCustomerMessageService, replyCustomerMessageService, getCustomerMessageService, deleteClientMessageService, deleteAdminMessageService, deleteConversationService } from '../services/customerMessageService.js'
+import { sendCustomerMessageService, getAllCustomerMessagesService, startCustomerMessageService, replyCustomerMessageService, getCustomerMessageService, readAdminCustomerMessageService, deleteClientMessageService, deleteAdminMessageService, deleteConversationService } from '../services/customerMessageService.js'
 
 const emitChatUpdate = (req, result, sender) => {
   if (!result.success || !result.chat) return
 
   const io = req.app.get('io')
-  io.to('admins').to(`user:${result.chat.userId}`).emit('customer-message:update', { chat: result.chat, sender })
+  io?.to('admins').emit('customer-message:update', { chat: result.chat, sender })
+  if (result.chat.userId) io?.to(`user:${result.chat.userId}`).emit('customer-message:update', { chat: result.chat, sender })
 }
 
 const sendCustomerMessage = async (req, res) => {
@@ -56,6 +57,17 @@ const getCustomerMessage = async (req, res) => {
   }
 }
 
+const readAdminCustomerMessage = async (req, res) => {
+  try {
+    const result = await readAdminCustomerMessageService(req.body)
+    emitChatUpdate(req, result, 'admin-read')
+    res.json(result)
+  } catch (error) {
+    console.log(error)
+    res.json({ success: false, message: error.message })
+  }
+}
+
 const deleteClientMessage = async (req, res) => {
   try {
     const result = await deleteClientMessageService(req.body)
@@ -87,4 +99,4 @@ const deleteConversation = async (req, res) => {
   }
 }
 
-export { sendCustomerMessage, getAllCustomerMessages, startCustomerMessage, replyCustomerMessage, getCustomerMessage, deleteClientMessage, deleteAdminMessage, deleteConversation }
+export { sendCustomerMessage, getAllCustomerMessages, startCustomerMessage, replyCustomerMessage, getCustomerMessage, readAdminCustomerMessage, deleteClientMessage, deleteAdminMessage, deleteConversation }

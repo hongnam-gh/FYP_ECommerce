@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { assets } from '../../assets/assets'
 import axios from 'axios'
+import { io } from 'socket.io-client'
 import { toast } from 'react-toastify'
 import useAuth from '../../hooks/useAuth'
 import useCart from '../../hooks/useCart'
@@ -94,6 +95,24 @@ const Cart = () => {
       window.removeEventListener('pageshow', refreshCartStock)
     }
   }, [cartData.length, fetchCartStock])
+
+  useEffect(() => {
+    const socket = io(backendUrl, token ? { auth: { token } } : undefined)
+
+    const updateCartStock = ({ inventory }) => {
+      setStockData(prev => ({
+        ...prev,
+        [inventory.productId]: inventory.stock || {}
+      }))
+    }
+
+    socket.on('inventory:update', updateCartStock)
+
+    return () => {
+      socket.off('inventory:update', updateCartStock)
+      socket.disconnect()
+    }
+  }, [token])
 
   const getSizeStock = (itemId, size) => {
     return Number(stockData?.[itemId]?.[size] || 0)

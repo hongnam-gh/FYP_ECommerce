@@ -51,7 +51,8 @@ io.use((socket, next) => {
     const token = socket.handshake.auth.token
 
     if (!token) {
-      return next(new Error('Not Authorize Login Again'))
+      socket.user = null
+      return next()
     }
 
     socket.user = jwt.verify(token, process.env.JWT_SECRET)
@@ -62,6 +63,8 @@ io.use((socket, next) => {
 })
 
 io.on('connection', (socket) => {
+  if (!socket.user) return
+
   if (socket.user.role === 'admin') {
     socket.join('admins')
   } else {

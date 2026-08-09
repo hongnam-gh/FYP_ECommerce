@@ -1,13 +1,13 @@
 import chatModel from '../models/chatModel.js'
 import userModel from '../models/userModel.js'
 
-// ------ Business Helpers --------
+// ------ --------
 
 const isDuplicateMessage = (lastMessage, sender, text) => {
   return lastMessage && lastMessage.sender === sender && lastMessage.text === text && Date.now() - lastMessage.date < 1500
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const sendCustomerMessageService = async ({ userId, name, email, text }) => {
   if (!name || !email || !text) return { success: false, message: 'Missing chat information' }
@@ -19,10 +19,11 @@ const sendCustomerMessageService = async ({ userId, name, email, text }) => {
 
     if (!isDuplicateMessage(lastMessage, 'client', text)) {
       chat.messages.push({ sender: 'client', text, date: Date.now() })
+      chat.adminUnread = true
       await chat.save()
     }
   } else {
-    chat = await chatModel.create({ userId: userId || '', name, email, messages: [{ sender: 'client', text, date: Date.now() }], date: Date.now() })
+    chat = await chatModel.create({ userId: userId || '', name, email, messages: [{ sender: 'client', text, date: Date.now() }], adminUnread: true, date: Date.now() })
   }
 
   return { success: true, message: 'Chat sent', chat }
@@ -63,10 +64,20 @@ const replyCustomerMessageService = async ({ chatId, text }) => {
 
   if (!isDuplicateMessage(lastMessage, 'admin', text)) {
     chat.messages.push({ sender: 'admin', text, date: Date.now() })
+    chat.adminUnread = false
     await chat.save()
   }
 
   return { success: true, message: 'Reply sent', chat }
+}
+
+const readAdminCustomerMessageService = async ({ chatId }) => {
+  if (!chatId) return { success: false, message: 'Conversation is required' }
+
+  const chat = await chatModel.findByIdAndUpdate(chatId, { adminUnread: false }, { new: true })
+  if (!chat) return { success: false, message: 'Chat not found' }
+
+  return { success: true, message: 'Conversation read', chat }
 }
 
 const getCustomerMessageService = async ({ email }) => {
@@ -117,4 +128,4 @@ const deleteConversationService = async ({ chatId }) => {
   return { success: true, message: 'Conversation deleted', chatId }
 }
 
-export { sendCustomerMessageService, getAllCustomerMessagesService, startCustomerMessageService, replyCustomerMessageService, getCustomerMessageService, deleteClientMessageService, deleteAdminMessageService, deleteConversationService }
+export { sendCustomerMessageService, getAllCustomerMessagesService, startCustomerMessageService, replyCustomerMessageService, getCustomerMessageService, readAdminCustomerMessageService, deleteClientMessageService, deleteAdminMessageService, deleteConversationService }

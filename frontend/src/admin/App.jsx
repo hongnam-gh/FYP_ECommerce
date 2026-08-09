@@ -37,8 +37,6 @@ const App = () => {
 
   const [sidebarAlerts, setSidebarAlerts] = useState({ orders: false, approvals: false, messages: false })
 
-  const [adminSocket, setAdminSocket] = useState(null)
-
   useEffect(() => {
     localStorage.setItem('adminToken', token)
     setAdminName(localStorage.getItem('adminName') ? localStorage.getItem('adminName') : '')
@@ -120,7 +118,6 @@ const App = () => {
       checkSidebarAlerts()
     }
 
-    setAdminSocket(socket)
     socket.on('customer-message:update', updateMessageAlert)
     socket.on('admin-orders:update', updateOrderData)
 
@@ -128,7 +125,6 @@ const App = () => {
       socket.off('customer-message:update', updateMessageAlert)
       socket.off('admin-orders:update', updateOrderData)
       socket.disconnect()
-      setAdminSocket(null)
     }
   }, [token, location.pathname])
 
@@ -158,7 +154,7 @@ const App = () => {
 
             <Routes>
               <Route index element={<Navigate to='/admin/approve-order' replace />} />
-              <Route path='customer-message' element={<div className='app-chat-page'><CustomerMessage token={token} clearMessageAlert={clearMessageAlert} socket={adminSocket} /></div>} />
+              <Route path='customer-message' element={<div className='app-chat-page'><CustomerMessage token={token} clearMessageAlert={clearMessageAlert} /></div>} />
               <Route path='user-management' element={<div className='app-page'><UserManagement token={token} /></div>} />
               <Route path='statistics' element={<div className='app-page'><StatisticManagement token={token} /></div>} />
               <Route path='add' element={<div className='app-page'><Add token={token} /></div>} />
@@ -170,9 +166,9 @@ const App = () => {
               <Route path='collection-management' element={<div className='app-page'><CollectionManagement token={token} /></div>} />
               <Route path='collection-management/:collectionId' element={<div className='app-page'><CollectionManagementView token={token} /></div>} />
               <Route path='collection-banner-management/*' element={<Navigate to='/admin/collection-management' replace />} />
-              <Route path='approve-order' element={<div className='app-page'><ApproveOrder token={token} updateApprovalAlert={updateApprovalAlert} socket={adminSocket} /></div>} />
+              <Route path='approve-order' element={<div className='app-page'><ApproveOrder token={token} updateApprovalAlert={updateApprovalAlert} /></div>} />
               <Route path='approve-history' element={<div className='app-page'><ApproveHistory token={token} /></div>} />
-              <Route path='orders' element={<div className='app-page'><OrdersAdmin token={token} clearOrderAlert={clearOrderAlert} socket={adminSocket} /></div>} />
+              <Route path='orders' element={<div className='app-page'><OrdersAdmin token={token} clearOrderAlert={clearOrderAlert} /></div>} />
               <Route path='*' element={<Navigate to='/admin/approve-order' replace />} />
             </Routes>
           </div>

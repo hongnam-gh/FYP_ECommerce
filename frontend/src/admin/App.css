@@ -42,6 +42,11 @@
   scroll-behavior: smooth;
 }
 
+.app-page *,
+.app-chat-page * {
+  box-sizing: border-box;
+}
+
 /* ===== CLIENT CHAT ===== */
 .app-chat-page {
   flex: 1;
@@ -89,5 +94,294 @@
 @media (max-width: 480px) {
   .app-page {
     padding: 12px;
+  }
+}
+
+/* ===== ADMIN RESPONSIVE HARDENING ===== */
+@media (max-width: 1024px) {
+  .app-page {
+    min-width: 0;
+  }
+
+  .app-page :is(
+    .list-page-header,
+    .inventory-header,
+    .admin-orders-header,
+    .approve-history-header,
+    .statistics-header,
+    .user-management-header,
+    .banner-header,
+    .manage-collection-header,
+    .inside-collection-header,
+    .add-header,
+    .edit-product-header
+  ) {
+    gap: .85rem;
+  }
+
+  .app-page :is(
+    .admin-orders-title,
+    .approve-history-title,
+    .statistics-title,
+    .inventory-title,
+    .list-page-title,
+    .user-management-header h1,
+    .banner-title,
+    .manage-collection-title,
+    .inside-collection-title,
+    .add-title,
+    .edit-product-title
+  ) {
+    font-size: 1.65rem;
+    line-height: 1.12;
+    letter-spacing: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    background: #f6f7fb;
+  }
+
+  .app-page {
+    min-height: calc(100vh - 150px);
+  }
+
+  .app-page :is(
+    .list-page-header,
+    .inventory-header,
+    .admin-orders-header,
+    .approve-history-header,
+    .statistics-header,
+    .user-management-header,
+    .banner-header,
+    .manage-collection-header,
+    .inside-collection-header,
+    .add-header,
+    .edit-product-header,
+    .collection-view-header
+  ) {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 1rem;
+  }
+
+  .app-page :is(
+    .list-add-product-btn,
+    .admin-approve-history-btn,
+    .statistics-refresh-btn,
+    .banner-save-btn,
+    .manage-collection-add-btn,
+    .inside-collection-add-btn,
+    .add-submit-btn,
+    .edit-product-submit-btn
+  ) {
+    width: 100%;
+  }
+
+  .app-page :is(
+    .list-card,
+    .inventory-card,
+    .admin-order-detail-card,
+    .approve-history-card,
+    .statistics-panel,
+    .statistics-main-card,
+    .statistics-operation-card,
+    .user-management-list,
+    .banner-card,
+    .banner-list-card,
+    .manage-collection-card,
+    .inside-collection-banner-card,
+    .inside-collection-product-card,
+    .add-card
+  ) {
+    border-radius: .85rem;
+  }
+
+  .app-page :is(
+    .list-control-row,
+    .inventory-control-row,
+    .banner-filter,
+    .banner-form,
+    .banner-form-grid,
+    .banner-actions,
+    .add-info-grid,
+    .add-code-grid,
+    .add-options-grid,
+    .add-manage-form,
+    .user-management-modal-grid,
+    .inside-collection-popup-toolbar
+  ) {
+    grid-template-columns: 1fr;
+  }
+
+  .app-page :is(
+    .list-search,
+    .list-select,
+    .inventory-search,
+    .inventory-select,
+    .admin-orders-search,
+    .user-management-toolbar,
+    .banner-input,
+    .banner-select,
+    .add-input,
+    .add-select,
+    .edit-product-form input,
+    .edit-product-form select,
+    .edit-product-form textarea
+  ) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .app-page :is(
+    .list-header,
+    .user-management-list-head,
+    .statistics-table-header
+  ) {
+    display: none;
+  }
+
+  .app-page :is(.list-row, .user-management-row) {
+    grid-template-columns: 4rem minmax(0, 1fr) auto;
+    gap: .75rem;
+    padding: .85rem;
+  }
+
+  .app-page :is(.list-code, .list-text, .list-price, .user-management-meta, .user-management-date) {
+    display: none;
+  }
+
+  .app-page :is(
+    .admin-order-detail-head,
+    .approve-history-card-head,
+    .statistics-panel-head,
+    .banner-card-head,
+    .inside-collection-popup-head,
+    .user-management-modal-head
+  ) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .app-page :is(
+    .admin-order-detail-grid,
+    .admin-order-summary,
+    .admin-order-product-list,
+    .admin-order-contact-list,
+    .approve-history-summary,
+    .approve-history-product-row,
+    .statistics-operation-cards,
+    .statistics-main-cards,
+    .statistics-grid,
+    .banner-list,
+    .manage-collection-list,
+    .inside-collection-product-grid
+  ) {
+    grid-template-columns: 1fr;
+  }
+
+  .app-page :is(
+    .statistics-product-table,
+    .statistics-inventory-table,
+    .add-manage-list-wrap,
+    .inside-collection-popup-list,
+    .admin-order-product-list,
+    .approve-history-product-list
+  ) {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .app-page :is(
+    .statistics-product-row,
+    .statistics-table-header
+  ) {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-page {
+    font-size: .92rem;
+  }
+
+  .app-page :is(
+    .admin-orders-title,
+    .approve-history-title,
+    .statistics-title,
+    .inventory-title,
+    .list-page-title,
+    .user-management-header h1,
+    .banner-title,
+    .manage-collection-title,
+    .inside-collection-title,
+    .add-title,
+    .edit-product-title
+  ) {
+    font-size: 1.45rem;
+  }
+
+  .app-page :is(
+    .admin-orders-subtitle,
+    .approve-history-subtitle,
+    .statistics-subtitle,
+    .inventory-subtitle,
+    .list-page-subtitle,
+    .user-management-header p,
+    .banner-subtitle,
+    .manage-collection-subtitle,
+    .inside-collection-subtitle,
+    .add-subtitle,
+    .edit-product-subtitle
+  ) {
+    font-size: .85rem;
+  }
+
+  .app-page :is(
+    .list-card,
+    .inventory-card,
+    .admin-order-detail-card,
+    .approve-history-card,
+    .statistics-panel,
+    .user-management-list,
+    .banner-card,
+    .manage-collection-card,
+    .inside-collection-banner-card,
+    .add-card
+  ) {
+    padding: 1rem;
+  }
+
+  .app-page :is(.admin-approval-detail-actions, .admin-reject-modal-actions, .confirm-popup-actions, .user-management-modal-actions, .banner-actions, .manage-collection-popup-actions) {
+    grid-template-columns: 1fr;
+  }
+
+  .app-page :is(.admin-approval-detail-actions button, .admin-reject-modal-actions button, .confirm-popup-actions button, .user-management-modal-actions button, .banner-actions button, .manage-collection-popup-actions button) {
+    width: 100%;
+  }
+
+  .app-page :is(.user-management-row, .list-row) {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+  }
+
+  .app-page :is(.user-management-actions, .list-actions) {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 420px) {
+  .app-page {
+    padding: 10px;
+  }
+
+  .app-page :is(.list-row, .user-management-row, .inventory-product-head, .approve-history-product-row, .admin-order-product-row) {
+    grid-template-columns: 1fr;
+  }
+
+  .app-page :is(.list-image-box, .inventory-product-image-box, .approve-history-product-image, .admin-order-product-image) {
+    width: 100%;
+    max-width: 5.5rem;
   }
 }

@@ -3,11 +3,11 @@ import inventoryModel from '../models/inventoryModel.js'
 import productModel from '../models/productModel.js'
 import cartModel from '../models/cartModel.js'
 
-// ------ Config --------
+// ------ --------
 
 const insufficientStockMessage = "Insufficient stock for the selected size";
 
-// ------ Database Helpers --------
+// ------ --------
 
 const getUserOrError = async (userId) => {
   if (!userId) return { error: { success: false, message: "User not found" } };
@@ -49,7 +49,7 @@ const getAvailableStock = async (itemId, size) => {
   return Number(inventory?.stock?.[size] || 0);
 };
 
-// ------ Public Services --------
+// ------ --------
 
 const addToCartService = async ({ userId, itemId, size }) => {
   const availableStock = await getAvailableStock(itemId, size);

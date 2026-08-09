@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
+import { io } from 'socket.io-client'
 import { backendUrl, currency } from '../App'
 import { toast } from 'react-toastify'
 import './Inventory.css'
@@ -164,9 +165,30 @@ const Inventory = ({ token }) => {
     fetchInventoryPageData()
   }, [])
 
+  useEffect(() => {
+    if (!token) return
+
+    const socket = io(backendUrl, { auth: { token } })
+
+    const updateInventoryStock = ({ inventory }) => {
+      setInventories(prev => prev.map(item =>
+        String(item.productId) === String(inventory.productId)
+          ? { ...item, stock: inventory.stock }
+          : item
+      ))
+    }
+
+    socket.on('inventory:update', updateInventoryStock)
+
+    return () => {
+      socket.off('inventory:update', updateInventoryStock)
+      socket.disconnect()
+    }
+  }, [token])
+
   return (
     <div className='inventory-page'>
-      
+
       <div className='inventory-header'>
         <div>
           <h1 className='inventory-title'>Inventory Management</h1>
@@ -174,7 +196,7 @@ const Inventory = ({ token }) => {
         </div>
       </div>
 
-      
+
       <div className='inventory-card'>
         <div className='inventory-toolbar'>
           <div className='inventory-control-row'>
@@ -191,7 +213,7 @@ const Inventory = ({ token }) => {
             </select>
           </div>
 
-          
+
           <div className='inventory-filter-list'>
             {[{ id: 'all', text: 'All' }, { id: 'in', text: 'In Stock' }, { id: 'low', text: 'Low Stock' }, { id: 'out', text: 'Out of Stock' }].map(item => (
               <button key={item.id} type='button' onClick={() => setFilter(item.id)} className={`inventory-filter-btn ${filter === item.id ? 'inventory-filter-active' : ''}`}>{item.text}</button>
@@ -200,7 +222,7 @@ const Inventory = ({ token }) => {
         </div>
       </div>
 
-      
+
       <div className='inventory-list'>
         {loading ? <div className='inventory-empty'>Loading inventory...</div> : filteredInventories.length > 0 ? filteredInventories.map((item) => {
           const product = item.product || {}
@@ -209,7 +231,7 @@ const Inventory = ({ token }) => {
 
           return (
             <div key={item._id} className='inventory-product-card'>
-              
+
               <div className='inventory-product-head'>
                 <div className='inventory-product-image-box'>
                   <img className='inventory-product-image' src={getInventoryProductImage(product)} alt={product.name || ''} />
@@ -221,7 +243,7 @@ const Inventory = ({ token }) => {
                   <p className='inventory-product-price'>{currency}{product.price}</p>
                 </div>
 
-                
+
                 <div className='inventory-product-status'>
                   <div className='inventory-badge-row'>
                     <span className='inventory-badge inventory-badge-in'>In Stock: {stockGroups.inText}</span>
@@ -232,7 +254,7 @@ const Inventory = ({ token }) => {
                 </div>
               </div>
 
-              
+
               <div className='inventory-stock-grid'>
                 {(product.sizes || Object.keys(item.stock || {})).map(size => (
                   <div key={size} className='inventory-stock-item'>
@@ -246,7 +268,7 @@ const Inventory = ({ token }) => {
         }) : <div className='inventory-empty'>Nothing found !</div>}
       </div>
 
-      
+
       <button type='button' onClick={updateInventoriesHandler} disabled={updating || changedProductIds.length === 0} className='inventory-update-btn'>{updating ? 'Updating...' : 'Update Inventory'}</button>
     </div>
   )

@@ -56,7 +56,14 @@ import useAuth from './hooks/useAuth'
 import { backendUrl } from './constants/shopConfig'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { consumeAuthSuccessToast } from './utils/authToast'
+
+const authToastKey = 'authSuccessToast'
+
+const consumeAuthSuccessToast = () => {
+  const message = sessionStorage.getItem(authToastKey)
+  if (message) sessionStorage.removeItem(authToastKey)
+  return message
+}
 
 const App = () => {
   const location = useLocation()

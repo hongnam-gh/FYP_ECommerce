@@ -2,11 +2,11 @@ import { v2 as cloudinary } from 'cloudinary'
 import collectionModel from '../models/collectionModel.js'
 import productModel from '../models/productModel.js'
 
-// ------ Config --------
+// ------ --------
 
 let collectionMigrationPromise = null
 
-// ------ Business Helpers --------
+// ------ --------
 
 const normalizeCollectionRoute = (value) => {
   const routeName = value
@@ -28,7 +28,7 @@ const uploadBannerImage = async (file) => {
   return result.secure_url
 }
 
-// ------ Database Helpers --------
+// ------ --------
 
 const runCollectionMigration = async () => {
   const currentCollections = await collectionModel.find({})
@@ -66,7 +66,7 @@ const getCollections = async () => {
   return collectionModel.find({}).sort({ date: 1 })
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const listCollectionsService = async () => {
   await migrateCollectionData()

@@ -11,12 +11,12 @@ import { createNotificationService } from './notificationService.js'
 import { calculateMemberOrderService } from './membershipService.js'
 import { reserveInventoryStock, releaseInventoryStock } from './inventoryStockService.js'
 
-// ------ Config --------
+// ------ --------
 
 const currency = 'usd'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-// ------ Business Helpers --------
+// ------ --------
 
 const isInvalidOrder = (items, amount, address) => {
   if (!items || !Array.isArray(items) || items.length === 0) return 'Cart is empty'
@@ -34,7 +34,7 @@ const publicOrder = (order, approvalStatus = 'approved') => {
   return { ...data, approvalStatus }
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const placeOrderService = async ({ userId, items, amount, address }) => {
   const orderError = isInvalidOrder(items, amount, address)

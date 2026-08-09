@@ -1,6 +1,6 @@
 import addressModel from '../models/addressModel.js'
 
-// ------ Public Services --------
+// ------ --------
 
 const getSavedAddressesService = async (userId) => {
   const addresses = await addressModel.find({ userId }).sort({ date: -1 }).limit(2)

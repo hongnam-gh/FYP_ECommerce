@@ -8,10 +8,11 @@ import userModel from '../models/userModel.js'
 import socialAuthModel from '../models/socialAuthModel.js'
 import adminModel from '../models/adminModel.js'
 import passwordResetModel from '../models/passwordResetModel.js'
+import membershipModel from '../models/membershipModel.js'
 import { sendResetPasswordEmail } from "./emailService.js";
 import { syncMembershipService } from './membershipService.js'
 
-// ------ Business Helpers --------
+// ------ --------
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET)
@@ -23,7 +24,7 @@ const createAdminToken = (id) => {
 
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
-// ------ Public Services --------
+// ------ --------
 
 const loginUserService = async ({ email, password }) => {
   const user = await userModel.findOne({ email })
@@ -61,9 +62,11 @@ const getUserProfileService = async ({ userId }) => {
   if (!user) return { success: false, message: "User not found" }
 
   const [socialAuth, membershipResult] = await Promise.all([
-    socialAuthModel.findOne({ userId }).select('provider'),
+    socialAuthModel.findOne({ userId }).select('provider avatar'),
     syncMembershipService(userId)
   ])
+
+  if (socialAuth?.avatar) user.avatar = socialAuth.avatar
 
   return { success: true, user, socialProvider: socialAuth?.provider || '', accountStats: membershipResult.membership }
 }
@@ -118,7 +121,13 @@ const deleteUserAvatarService = async ({ userId }) => {
 
 const listUsersAdminService = async () => {
   const users = await userModel.find({}).select('-password -cartData').sort({ name: 1 }).lean()
-  return { success: true, users }
+  const memberships = await membershipModel.find({ userId: { $in: users.map((user) => user._id) } }).select('userId rank').lean()
+  const membershipMap = new Map(memberships.map((membership) => [String(membership.userId), membership.rank]))
+
+  return {
+    success: true,
+    users: users.map((user) => ({ ...user, membershipRank: membershipMap.get(String(user._id)) || 'Standard' }))
+  }
 }
 
 const updateUserAdminService = async ({ id, name, email }) => {

@@ -78,6 +78,10 @@
   cursor: pointer;
 }
 
+.banner-list-image-empty {
+  background: #000;
+}
+
 .banner-list-image img {
   width: 100%;
   height: 100%;

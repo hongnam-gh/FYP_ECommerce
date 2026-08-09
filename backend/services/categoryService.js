@@ -1,6 +1,6 @@
 import categoryModel from '../models/categoryModel.js'
 
-// ------ Public Services --------
+// ------ --------
 
 const addCategoryService = async ({ name }) => {
   if (!name) return { success: false, message: 'Category name is required' }

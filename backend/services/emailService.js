@@ -2,14 +2,14 @@ import nodemailer from 'nodemailer'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-// ------ Config --------
+// ------ --------
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const logoPath = path.resolve(__dirname, '../../frontend/src/assets/distressed-logo.png')
 const logoCid = 'distressed-logo'
 
-// ------ Business Helpers --------
+// ------ --------
 
 const createTransporter = () => {
     return nodemailer.createTransport({
@@ -36,7 +36,7 @@ const getLogoHtml = (dark = false) => `
 `
 const logoAttachment = [{ filename: 'distressed-logo.png', path: logoPath, cid: logoCid }]
 
-// ------ Public Services --------
+// ------ --------
 
 const sendResetPasswordEmail = async (email, resetLink) => {
     const transporter = createTransporter()

@@ -2,16 +2,12 @@ import chatbotModel from '../models/chatbotModel.js'
 import productModel from '../models/productModel.js'
 import { getSizeRecommendation } from './sizeSuggestionService.js'
 
-// ------ Config --------
+// --------------
 
 const PRODUCT_DETAILS_PROMPT = 'Please provide the product code, your height (cm), and your weight (kg).'
 const FIT_PROMPT = 'Would you like Slim Fit, Regular Fit, or Oversized Fit?'
 
-// ------ Business Helpers --------
-
-const isStoreOnlyRefusal = (text = '') => {
-  return /can only help with questions about (?:using )?the Distressed store|unable to provide information about individuals|can't help with that question/i.test(text)
-}
+// --------------
 
 const isProductAdviceRequest = (text) => {
   return /recommend(?:ation)?|advice|consult|\bsize\b/i.test(text)
@@ -43,8 +39,8 @@ const getInvalidMeasurement = (text) => {
   const height = Number(heightMatches[heightMatches.length - 1]?.[1])
   const weight = Number(weightMatches[weightMatches.length - 1]?.[1])
 
-  if (height && (height < 120 || height > 220)) return 'height'
-  if (weight && (weight < 30 || weight > 200)) return 'weight'
+  if (height && (height < 155 || height > 190)) return 'height'
+  if (weight && (weight < 45 || weight > 90)) return 'weight'
 
   return ''
 }
@@ -53,6 +49,10 @@ const hasMeasurements = (text) => {
   const hasHeight = /(\d{3})\s*(?:cm|centimeters?|centimetres?)/i.test(text)
   const hasWeight = /(\d{2,3})\s*(?:kg|kilograms?|kilogrammes?)/i.test(text)
   return hasHeight && hasWeight
+}
+
+const hasBodyMeasurement = (text) => {
+  return /\d{3}\s*(?:cm|centimeters?|centimetres?)|\d{2,3}\s*(?:kg|kilograms?|kilogrammes?)/i.test(text)
 }
 
 const getProductFromMessages = async (messages) => {
@@ -89,7 +89,7 @@ const saveChatbotReply = async (chat, text) => {
   return { success: true, reply: text, chat }
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const getChatbotHistoryService = async (userId) => {
   if (!userId) return { success: false, message: 'User not found' }
@@ -116,6 +116,7 @@ const chatbotReplyService = async ({ userId, text }) => {
   const currentMessage = { sender: 'customer', text }
   const consultationState = getConsultationState(previousMessages)
   const productAdviceRequest = isProductAdviceRequest(text)
+  const bodyMeasurementReply = hasBodyMeasurement(text)
   const continueDetails = consultationState === 'details' && isProductDetailReply(text)
   const continueFit = consultationState === 'fit' && isFitReply(text)
 
@@ -133,7 +134,7 @@ const chatbotReplyService = async ({ userId, text }) => {
     return await saveChatbotReply(chat, PRODUCT_DETAILS_PROMPT)
   }
 
-  if (continueDetails || (productAdviceRequest && isProductDetailReply(text))) {
+  if (continueDetails || (productAdviceRequest && isProductDetailReply(text)) || bodyMeasurementReply) {
     const activeMessages = getActiveConsultationMessages(previousMessages)
     const consultationMessages = [...activeMessages, currentMessage]
     const product = await getProductFromMessages(consultationMessages)
@@ -141,7 +142,7 @@ const chatbotReplyService = async ({ userId, text }) => {
     const invalidMeasurement = getInvalidMeasurement(measurementText)
 
     if (invalidMeasurement) {
-      const reply = `Sorry, the ${invalidMeasurement} you provided is invalid. Please provide the product code again with a height from 120-220cm and a weight from 30-200kg.`
+      const reply = `Sorry, the ${invalidMeasurement} you provided is invalid. Please provide the product code again with a height from 155-190cm and a weight from 45-90kg.`
 
       return await saveChatbotReply(chat, reply)
     }
@@ -160,7 +161,6 @@ const chatbotReplyService = async ({ userId, text }) => {
   if (!process.env.OPENROUTER_API_KEY) return { success: false, message: 'OpenRouter API key is not configured', chat }
 
   const chatMessages = chat.messages
-    .filter((message) => !(message.sender === 'chatbot' && isStoreOnlyRefusal(message.text)))
     .slice(-6)
     .map((message) => ({ role: message.sender === 'customer' ? 'user' : 'assistant', content: message.text }))
 
@@ -170,7 +170,7 @@ const chatbotReplyService = async ({ userId, text }) => {
     messages: [
       {
         role: 'system',
-	        content: `You are the Distressed assistant. Always reply in English and answer the customer's latest question, even when an earlier product-size flow is unfinished. You can answer both general questions and questions related to the Distressed store. Do not refuse a harmless general question just because it is not about the store. Be direct, natural and helpful in no more than four short sentences without markdown or headings.
+        content: `You are the Distressed assistant. Always reply in English and answer the customer's latest question, even when an earlier product-size flow is unfinished. You can answer both general questions and questions related to the Distressed store. Do not refuse a harmless general question just because it is not about the store. Be direct, natural and helpful in no more than four short sentences without markdown or headings.
 
 Distressed is a fashion ecommerce store. Customers can browse New Arrivals, Women, Men and Accessories; search products from the navbar; view product codes, prices, available sizes, size charts and fit suggestions; use a wishlist and cart; then log in to checkout. Guest cart items merge into the account cart after login. Checkout supports COD, Stripe and MoMo, has a $10 delivery charge, and a submitted order waits for admin approval. Customers can view and track orders, and can cancel only while the order status is Order Placed or Packing. Accounts support signup, login, password reset and up to two saved delivery information cards.
 

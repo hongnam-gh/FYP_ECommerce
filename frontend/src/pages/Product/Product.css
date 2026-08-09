@@ -540,49 +540,6 @@
     border-radius: 0;
 }
 
-.product-cart-btn-smoke {
-    animation: productAddBounce .55s ease;
-}
-
-.product-cart-btn-smoke::before,
-.product-cart-btn-smoke::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: -8px;
-    width: 10px;
-    height: 10px;
-    border-radius: 999px;
-    background: rgba(17, 24, 39, .18);
-    pointer-events: none;
-    animation: productSmokeUp .75s ease forwards;
-}
-
-.product-cart-btn-smoke::after {
-    animation-delay: .12s;
-}
-
-@keyframes productAddBounce {
-    0% { transform: translateY(0) scale(1); }
-    35% { transform: translateY(-8px) scale(1.04); }
-    70% { transform: translateY(2px) scale(.98); }
-    100% { transform: translateY(0) scale(1); }
-}
-
-@keyframes productSmokeUp {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, 0) scale(.6);
-    }
-    20% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -28px) scale(2);
-    }
-}
-
 .product-buy-btn:active,
 .product-cart-btn:active {
     background: #374151;
@@ -801,10 +758,34 @@
 
 .choose-your-size-measurement {
     flex-shrink: 0;
-    border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.choose-your-size-measurement label {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid rgba(148, 163, 184, .5);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, .82);
+    padding: 3px 5px;
+}
+
+.choose-your-size-measurement input {
+    width: 38px;
+    border: 0;
+    outline: 0;
     background: transparent;
     color: #374151;
-    padding: 0;
+    font-size: 12px;
+    font-weight: 800;
+    text-align: right;
+}
+
+.choose-your-size-measurement span {
+    color: #374151;
     font-size: 12px;
     font-weight: 800;
 }
@@ -1282,6 +1263,11 @@
 
     .choose-your-size {
         height: auto;
+    }
+
+    .choose-your-size-head {
+        align-items: flex-start;
+        flex-direction: column;
     }
 
     .product-size-head {

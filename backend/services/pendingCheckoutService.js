@@ -1,11 +1,11 @@
 import pendingCheckoutModel from '../models/pendingCheckoutModel.js'
 import { releaseInventoryStock } from './inventoryStockService.js'
 
-// ------ Config --------
+// ------ --------
 
 const checkoutDuration = 35 * 60 * 1000
 
-// ------ Public Services --------
+// ------ --------
 
 const cleanupExpiredCheckoutsService = async () => {
   const expiredCheckouts = await pendingCheckoutModel.find({ expiresAt: { $lte: Date.now() } })

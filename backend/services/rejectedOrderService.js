@@ -3,7 +3,7 @@ import rejectedOrderModel from '../models/rejectedOrderModel.js'
 import { createNotificationService } from './notificationService.js'
 import { releaseInventoryStock } from './inventoryStockService.js'
 
-// ------ Public Services --------
+// ------ --------
 
 const rejectOrderService = async ({ orderId, reason }) => {
   const rejectReason = String(reason || '').trim()

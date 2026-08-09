@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
+import { io } from 'socket.io-client'
 import { FiCalendar, FiMail, FiMapPin, FiPhone, FiSearch } from 'react-icons/fi'
 import { assets } from '../../assets/assets'
 import { backendUrl, currency } from '../App'
@@ -43,7 +44,7 @@ const getOrderHeaderGradient = (orderId) => {
   return `linear-gradient(rgba(255, 255, 255, .56), rgba(255, 255, 255, .56)), url(${orderGradients[gradientIndex]})`
 }
 
-const OrdersAdmin = ({ token, clearOrderAlert, socket }) => {
+const OrdersAdmin = ({ token, clearOrderAlert }) => {
   const [orders, setOrders] = useState([])
   const [search, setSearch] = useState('')
 
@@ -95,11 +96,16 @@ const OrdersAdmin = ({ token, clearOrderAlert, socket }) => {
   }, [token])
 
   useEffect(() => {
-    if (!socket) return
+    if (!token) return
+
+    const socket = io(backendUrl, { auth: { token } })
 
     socket.on('admin-orders:update', fetchAllOrders)
-    return () => socket.off('admin-orders:update', fetchAllOrders)
-  }, [socket, token])
+    return () => {
+      socket.off('admin-orders:update', fetchAllOrders)
+      socket.disconnect()
+    }
+  }, [token])
 
   return (
     <div className='admin-orders-page'>

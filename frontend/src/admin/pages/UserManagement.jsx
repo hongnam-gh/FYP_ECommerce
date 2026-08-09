@@ -16,6 +16,17 @@ const getUserAvatar = (avatar) => {
   return avatar.replace('/image/upload/', '/image/upload/c_fill,w_160,h_160,g_face/')
 }
 
+const UserAvatar = ({ user }) => {
+  const [avatarError, setAvatarError] = useState(false)
+  const avatar = !avatarError ? getUserAvatar(user.avatar) : ''
+
+  return (
+    <div className='user-management-avatar'>
+      {avatar ? <img referrerPolicy='no-referrer' onError={() => setAvatarError(true)} src={avatar} alt={user.name} /> : <span>{getUserInitials(user.name)}</span>}
+    </div>
+  )
+}
+
 const UserManagement = ({ token }) => {
   const [users, setUsers] = useState([])
   const [search, setSearch] = useState('')
@@ -65,7 +76,7 @@ const UserManagement = ({ token }) => {
       const response = await axios.post(backendUrl + '/api/user/admin-update', { id: editingUser._id, name: name.trim(), email: email.trim() }, { headers: { token } })
 
       if (response.data.success) {
-        setUsers(prev => prev.map(user => user._id === response.data.user._id ? response.data.user : user))
+        setUsers(prev => prev.map(user => user._id === response.data.user._id ? { ...response.data.user, membershipRank: user.membershipRank } : user))
         toast.success(response.data.message)
         setEditingUser(null)
         setName('')
@@ -102,9 +113,15 @@ const UserManagement = ({ token }) => {
 
   const filteredUsers = useMemo(() => {
     const keyword = search.trim().toLowerCase()
-    if (!keyword) return users
 
-    return users.filter(user => user.name?.toLowerCase().includes(keyword) || user.email?.toLowerCase().includes(keyword))
+    return users.filter(item => {
+      const matchedSearch =
+        !keyword ||
+        item.name?.toLowerCase().includes(keyword) ||
+        item.code?.toLowerCase().includes(keyword)
+
+      return matchedSearch
+    })
   }, [users, search])
 
   useEffect(() => {
@@ -130,15 +147,14 @@ const UserManagement = ({ token }) => {
         <div className='user-management-list-head'>
           <b>User</b>
           <b>Email</b>
+          <b>Membership</b>
           <b>Action</b>
         </div>
 
         {loading ? <div className='user-management-empty'>Loading users...</div> : filteredUsers.length === 0 ? <div className='user-management-empty'>Nothing found !</div> : filteredUsers.map(user => (
           <div key={user._id} className='user-management-row'>
             <div className='user-management-profile'>
-              <div className='user-management-avatar'>
-                {user.avatar ? <img src={getUserAvatar(user.avatar)} alt={user.name} /> : <span>{getUserInitials(user.name)}</span>}
-              </div>
+              <UserAvatar user={user} />
               <div>
                 <p>{user.name}</p>
                 <small>Customer account</small>
@@ -146,6 +162,7 @@ const UserManagement = ({ token }) => {
             </div>
 
             <p className='user-management-email'>{user.email}</p>
+            <p className={`user-management-rank user-management-rank-${(user.membershipRank || 'Standard').toLowerCase()}`}>{user.membershipRank || 'Standard'}</p>
 
             <div className='user-management-actions'>
               <button type='button' onClick={() => openEditUser(user)} className='user-management-edit-btn'><FiEdit2 /> Edit User</button>
@@ -167,9 +184,7 @@ const UserManagement = ({ token }) => {
             </div>
 
             <div className='user-management-modal-profile'>
-              <div className='user-management-avatar'>
-                {editingUser.avatar ? <img src={getUserAvatar(editingUser.avatar)} alt={editingUser.name} /> : <span>{getUserInitials(editingUser.name)}</span>}
-              </div>
+              <UserAvatar user={editingUser} />
               <p>{editingUser.email}</p>
             </div>
 
@@ -180,7 +195,7 @@ const UserManagement = ({ token }) => {
 
             <label>
               <span>Email Address</span>
-              <input value={email} onChange={(event) => setEmail(event.target.value)} type='email' placeholder='Enter email address' />
+              <input value={email} readOnly type='email' placeholder='Enter email address' />
             </label>
 
             <div className='user-management-modal-actions'>

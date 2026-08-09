@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import userModel from '../models/userModel.js'
 import socialAuthModel from '../models/socialAuthModel.js'
 
-// ------ Business Helpers --------
+// ------ --------
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET)
@@ -15,7 +15,7 @@ const getSocialUser = async ({ provider, providerId, name, email, avatar }) => {
   if (socialAuth) {
     const user = await userModel.findById(socialAuth.userId)
     if (user) {
-      user.avatar = avatar || ''
+      if (!user.avatar && avatar) user.avatar = avatar
       await user.save()
 
       socialAuth.email = email
@@ -33,7 +33,7 @@ const getSocialUser = async ({ provider, providerId, name, email, avatar }) => {
     user = new userModel({ name, email, avatar })
     await user.save()
   } else {
-    user.avatar = avatar || ''
+    if (!user.avatar && avatar) user.avatar = avatar
     await user.save()
   }
 
@@ -46,7 +46,7 @@ const getSocialUser = async ({ provider, providerId, name, email, avatar }) => {
   return { success: true, token: createToken(user._id) }
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const googleLoginService = async ({ accessToken }) => {
   if (!accessToken) return { success: false, message: 'Google access token is required' }

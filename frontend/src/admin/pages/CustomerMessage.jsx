@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import axios from 'axios'
+import { io } from 'socket.io-client'
 import { toast } from 'react-toastify'
 import { FiSearch } from 'react-icons/fi'
 import { backendUrl } from '../App'
@@ -58,7 +59,7 @@ const UserSearch = ({ users, chats, startingUserId, onSelect }) => {
   )
 }
 
-const CustomerMessage = ({ token, clearMessageAlert, socket }) => {
+const CustomerMessage = ({ token, clearMessageAlert }) => {
   const [chats, setChats] = useState([])
 
   const [selectedChat, setSelectedChat] = useState(null)
@@ -149,6 +150,28 @@ const CustomerMessage = ({ token, clearMessageAlert, socket }) => {
     }
   }
 
+  const selectChat = (chat) => {
+    setSelectedChat(chat)
+  }
+
+  const markChatRead = async (chat) => {
+    if (!token || !chat?._id || !chat.adminUnread) return
+
+    setChats((prev) => prev.map((item) => item._id === chat._id ? { ...item, adminUnread: false } : item))
+    setSelectedChat((prev) => prev?._id === chat._id ? { ...prev, adminUnread: false } : prev)
+
+    try {
+      const response = await axios.post(backendUrl + '/api/customer-message/read-admin', { chatId: chat._id }, { headers: { token } })
+
+      if (response.data.success) {
+        setChats((prev) => prev.map((item) => item._id === response.data.chat._id ? response.data.chat : item))
+        setSelectedChat((prev) => prev?._id === response.data.chat._id ? response.data.chat : prev)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const replyChat = async () => {
     const replyText = replyInputRef.current?.value.trim() || ''
     if (!replyText || !selectedChat || replying) return
@@ -221,6 +244,10 @@ const CustomerMessage = ({ token, clearMessageAlert, socket }) => {
     fetchUsers()
   }, [token])
 
+  useEffect(() => {
+    if (selectedChat?.adminUnread) markChatRead(selectedChat)
+  }, [selectedChat?._id, selectedChat?.adminUnread])
+
   const userLookup = useMemo(() => {
     const byId = new Map(users.map((user) => [String(user._id), user]))
     const byEmail = new Map(users.map((user) => [user.email?.toLowerCase(), user]))
@@ -232,7 +259,9 @@ const CustomerMessage = ({ token, clearMessageAlert, socket }) => {
   }
 
   useEffect(() => {
-    if (!socket) return
+    if (!token) return
+
+    const socket = io(backendUrl, { auth: { token } })
 
     const updateCustomerChat = ({ chat, sender }) => {
       setChats((prev) => {
@@ -250,8 +279,11 @@ const CustomerMessage = ({ token, clearMessageAlert, socket }) => {
     }
 
     socket.on('customer-message:update', updateCustomerChat)
-    return () => socket.off('customer-message:update', updateCustomerChat)
-  }, [socket])
+    return () => {
+      socket.off('customer-message:update', updateCustomerChat)
+      socket.disconnect()
+    }
+  }, [token])
 
   return (
     <div className='client-chat'>
@@ -279,7 +311,7 @@ const CustomerMessage = ({ token, clearMessageAlert, socket }) => {
               const chatUser = getChatUser(chat)
 
               return (
-                <div key={chat._id} className={`client-card ${selectedChat?._id === chat._id ? 'active' : ''}`} onClick={() => setSelectedChat(chat)}>
+                <div key={chat._id} className={`client-card ${selectedChat?._id === chat._id ? 'active' : ''} ${chat.adminUnread ? 'client-card-unread' : ''}`} onClick={() => selectChat(chat)}>
                   {/* Avatar client */}
                   <div className='client-avatar'>{chatUser?.avatar ? <img src={getCustomerAvatar(chatUser.avatar)} alt={chat.name} /> : chat.name?.charAt(0)?.toUpperCase() || 'C'}</div>
 

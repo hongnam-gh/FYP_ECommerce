@@ -5,12 +5,16 @@ import { useGoogleLogin } from '@react-oauth/google'
 import useAuth from './useAuth'
 import { mergeGuestCart } from './useCart'
 import { backendUrl } from '../constants/shopConfig'
-import { queueAuthSuccessToast } from '../utils/authToast'
 
+const authToastKey = 'authSuccessToast'
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
 const facebookAppId = import.meta.env.VITE_FACEBOOK_APP_ID
 const facebookApiVersion = import.meta.env.VITE_FACEBOOK_API_VERSION || 'v25.0'
 let facebookSdkPromise = null
+
+const queueAuthSuccessToast = (message) => {
+  sessionStorage.setItem(authToastKey, message)
+}
 
 const loadFacebookSdk = () => {
   if (window.FB) return Promise.resolve(window.FB)

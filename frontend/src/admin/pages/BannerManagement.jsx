@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
+import { io } from 'socket.io-client'
 import { toast } from 'react-toastify'
 import { FiArrowLeft, FiEdit2, FiImage, FiSave, FiX } from 'react-icons/fi'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -8,11 +9,9 @@ import { backendUrl } from '../App'
 import './BannerManagement.css'
 
 const bannerPages = [
-  { value: 'home', label: 'Home', title: 'LATEST RIVALS', eyebrow: 'DISTRESSED TRADEMARK', subtitle: '' },
   { value: 'new-arrivals-women', label: 'New Arrivals Women', title: 'WOMEN NEW ARRIVALS' },
   { value: 'new-arrivals-men', label: 'New Arrivals Men', title: 'MEN NEW ARRIVALS' },
   { value: 'new-arrivals-accessories', label: 'New Arrivals Accessories', title: 'ACCESSORIES NEW ARRIVALS' },
-  { value: 'discover-fashion', label: 'Discover Fashion', title: 'DISCOVER FASHION' },
   { value: 'women-view-all', label: 'Women View All', title: 'WOMEN COLLECTION' },
   { value: 'women-tops-shirts', label: 'Women Tops & Shirts', title: 'WOMEN TOPS & SHIRTS' },
   { value: 'women-bottomwear', label: 'Women Bottomwear', title: 'WOMEN BOTTOMWEAR' },
@@ -162,6 +161,40 @@ const BannerManagement = ({ token }) => {
     loadBanner(selectedTarget)
   }, [pageId, editing, dataLoaded, navigate, loadBanner])
 
+
+  useEffect(() => {
+  if (!token) return
+
+  const socket = io(backendUrl, { auth: { token } })
+
+  const updateBanner = ({ banner }) => {
+    setBanners((prev) => [
+      banner,
+      ...prev.filter((item) => item.page !== banner.page)
+    ])
+  }
+
+  const removeBannerFromList = ({ page }) => {
+    setBanners((prev) => prev.filter((item) => item.page !== page))
+
+    if (target?.value === page) {
+      setImage(null)
+      setPreview('')
+    }
+  }
+
+  socket.on('banner:update', updateBanner)
+  socket.on('banner:remove', removeBannerFromList)
+
+  return () => {
+    socket.off('banner:update', updateBanner)
+    socket.off('banner:remove', removeBannerFromList)
+    socket.disconnect()
+  }
+}, [token, target?.value])
+
+
+
   const selectedTargets = filterType === 'collection' ? collectionPages : bannerPages
   const savedBanner = target ? getSavedBanner(banners, target) : null
 
@@ -185,8 +218,8 @@ const BannerManagement = ({ token }) => {
 
               return (
                 <div key={item.value} className='banner-list-card'>
-                  <button type='button' onClick={() => editBanner(item)} className='banner-list-image'>
-                    <img src={banner?.image || assets.dashboard_img} alt={item.label} />
+                  <button type='button' onClick={() => editBanner(item)} className={`banner-list-image ${!banner?.image ? 'banner-list-image-empty' : ''}`}>
+                    {banner?.image && <img src={banner.image} alt={item.label} />}
                   </button>
 
                   <div className='banner-list-info'>
@@ -234,9 +267,9 @@ const BannerManagement = ({ token }) => {
               </div>
 
               <div className='banner-fields'>
-                <label><span>Eyebrow</span><input value={eyebrow} onChange={(event) => setEyebrow(event.target.value)} type='text' placeholder='DISTRESSED' /></label>
+                <label><span>Eyebrow</span><input value={eyebrow} onChange={(event) => setEyebrow(event.target.value)} type='text' placeholder='DISTRESSED' required/></label>
                 <label><span>Title</span><input value={title} onChange={(event) => setTitle(event.target.value)} type='text' placeholder='Banner title' required /></label>
-                <label><span>Subtitle</span><textarea value={subtitle} onChange={(event) => setSubtitle(event.target.value)} placeholder='Banner description'></textarea></label>
+                <label><span>Subtitle</span><textarea value={subtitle} onChange={(event) => setSubtitle(event.target.value)} placeholder='Banner description' required></textarea></label>
               </div>
 
               <div className='banner-actions'>

@@ -3,7 +3,7 @@ import productModel from '../models/productModel.js'
 import inventoryModel from '../models/inventoryModel.js'
 import collectionModel from '../models/collectionModel.js'
 
-// ------ Business Helpers --------
+// ------ --------
 
 const validateProductCode = (code) => {
   const productCode = code?.trim()
@@ -136,7 +136,7 @@ const filterProductsByAdvanced = (products, filters = emptyAdvancedFilters) => {
   })
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const addProductService = async (body, files) => {
   const { name, code, description, price, category, subcategory, material, color, collectionId, sizes, newarrival } = body

@@ -1,4 +1,4 @@
-// ------ Config --------
+// ------ --------
 
 const SIZE_ORDER = ['S', 'M', 'L', 'XL']
 
@@ -17,7 +17,7 @@ const SIZE_CHART = {
   ]
 }
 
-// ------ Business Helpers --------
+// ------ --------
 
 const getSizeByValue = (chart, value, type) => {
   const minKey = type === 'height' ? 'minHeight' : 'minWeight'
@@ -85,7 +85,7 @@ const getSelectedFit = (text) => {
   return ''
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const getSizeRecommendation = (text, product = {}, previousMessages = []) => {
   let measurements = getMeasurements(text)

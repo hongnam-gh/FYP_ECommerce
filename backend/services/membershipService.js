@@ -4,7 +4,7 @@ import waitForApproveModel from '../models/waitForApproveModel.js'
 import rejectedOrderModel from '../models/rejectedOrderModel.js'
 import productModel from '../models/productModel.js'
 
-// ------ Config --------
+// ------ --------
 
 const membershipPolicies = [
   { rank: 'Diamond', minSpent: 10000, discountPercent: 20, deliveryFee: 0 },
@@ -13,7 +13,7 @@ const membershipPolicies = [
   { rank: 'Standard', minSpent: 0, discountPercent: 0, deliveryFee: 10 }
 ]
 
-// ------ Database Helpers --------
+// ------ --------
 
 const findMembership = (userId) => {
   return membershipModel.findOne({ userId }).select('rank')
@@ -49,7 +49,7 @@ const updateMembership = (userId, policy, stats, calculatedAt, currentMembership
   return membershipModel.findOneAndUpdate({ userId }, update, { new: true })
 }
 
-// ------ Business Helpers --------
+// ------ --------
 
 const roundMoney = (value) => Number(Number(value || 0).toFixed(2))
 
@@ -84,7 +84,7 @@ const buildPricedItems = (items, products) => {
   return pricedItems
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const getMembershipPolicyService = (totalSpent) => {
   return getPolicy(totalSpent)

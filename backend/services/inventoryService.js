@@ -1,7 +1,7 @@
 import inventoryModel from '../models/inventoryModel.js'
 import productModel from '../models/productModel.js'
 
-// ------ Business Helpers --------
+// ------ --------
 
 const validateStock = (stock = {}) => {
   const cleanStock = {}
@@ -16,7 +16,7 @@ const validateStock = (stock = {}) => {
   return cleanStock
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const listInventoryService = async () => {
   const products = await productModel.find({}).lean()

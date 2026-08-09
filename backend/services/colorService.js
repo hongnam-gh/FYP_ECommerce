@@ -1,6 +1,6 @@
 import colorModel from '../models/colorModel.js'
 
-// ------ Public Services --------
+// ------ --------
 
 const addColorService = async ({ name }) => {
   if (!name) return { success: false, message: 'Color name is required' }

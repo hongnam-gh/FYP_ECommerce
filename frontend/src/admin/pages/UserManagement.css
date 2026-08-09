@@ -76,7 +76,7 @@
 .user-management-list-head,
 .user-management-row {
   display: grid;
-  grid-template-columns: minmax(15rem, 1.2fr) minmax(14rem, 1fr) auto;
+  grid-template-columns: minmax(15rem, 1.2fr) minmax(14rem, 1fr) minmax(8rem, .45fr) auto;
   align-items: center;
   gap: 1.25rem;
 }
@@ -164,6 +164,39 @@
   font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.user-management-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-width: 5.8rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #f9fafb;
+  padding: .45rem .7rem;
+  color: #111827;
+  font-size: .68rem;
+  font-weight: 800;
+}
+
+.user-management-rank-silver {
+  border-color: #d1d5db;
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.user-management-rank-gold {
+  border-color: #fde68a;
+  background: #fffbeb;
+  color: #a16207;
+}
+
+.user-management-rank-diamond {
+  border-color: #a5f3fc;
+  background: #ecfeff;
+  color: #0e7490;
 }
 
 .user-management-actions {
@@ -317,6 +350,12 @@
 
 .user-management-modal > label > input:focus {
   border-color: #000;
+}
+
+.user-management-modal > label > input[readonly] {
+  background: #f9fafb;
+  color: #6b7280;
+  cursor: not-allowed;
 }
 
 .user-management-modal-actions {

@@ -4,12 +4,16 @@
 ======================================================= */
 
 .admin-sidebar {
+  position: sticky;
+  top: 89px;
+  align-self: flex-start;
   width: 18%;
   min-width: 230px;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 89px);
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   border-right: 1px solid rgba(255, 255, 255, .08);
   background: radial-gradient(circle at top left, rgba(138, 72, 255, .22), transparent 34%), linear-gradient(180deg, #111018 0%, #0b0b10 52%, #07070a 100%);
   color: #fff;
@@ -51,6 +55,7 @@
 }
 
 .admin-sidebar-menu {
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: .65rem;
@@ -168,5 +173,101 @@
 @media (min-width: 768px) {
   .admin-sidebar-text {
     display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    min-width: 86px;
+    width: 86px;
+  }
+
+  .admin-sidebar-brand {
+    justify-content: center;
+    padding: 18px 10px 12px;
+  }
+
+  .admin-sidebar-brand p,
+  .admin-sidebar-text {
+    display: none;
+  }
+
+  .admin-sidebar-menu,
+  .admin-sidebar-bottom {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .admin-sidebar-link,
+  .admin-sidebar-logout {
+    justify-content: center;
+    padding: .8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    position: sticky;
+    top: 76px;
+    z-index: 900;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    max-width: 100vw;
+    flex-direction: row;
+    align-items: center;
+    gap: .4rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    box-shadow: 0 16px 28px rgba(0, 0, 0, .18);
+  }
+
+  .admin-sidebar-brand {
+    display: none;
+  }
+
+  .admin-sidebar-menu {
+    min-width: max-content;
+    flex-direction: row;
+    gap: .45rem;
+    padding: .7rem .75rem;
+  }
+
+  .admin-sidebar-bottom {
+    margin-top: 0;
+    min-width: max-content;
+    padding: .7rem .75rem .7rem 0;
+    border-top: 0;
+  }
+
+  .admin-sidebar-link,
+  .admin-sidebar-logout {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 14px;
+  }
+
+  .admin-sidebar-link:hover,
+  .admin-sidebar-logout:hover {
+    transform: none;
+  }
+
+  .admin-sidebar-link.active::before {
+    left: 50%;
+    top: auto;
+    bottom: -8px;
+    width: 24px;
+    height: 3px;
+    transform: translateX(-50%);
+  }
+
+  .admin-sidebar-dot {
+    top: 8px;
+    right: 8px;
+    width: 9px;
+    height: 9px;
   }
 }

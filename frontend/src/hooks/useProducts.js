@@ -1,11 +1,13 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { io } from "socket.io-client";
 import { backendUrl } from "../constants/shopConfig";
 
 let products = [];
 let productsLoaded = false;
 let productsLoading = false;
+let inventorySocket = null;
 const productListeners = new Set();
 
 const updateProductsView = () => productListeners.forEach(listener => listener());
@@ -20,6 +22,24 @@ export const getProducts = () => products;
 export const setProducts = (productData) => {
   products = productData || [];
   updateProductsView();
+};
+
+const updateProductStock = (inventory) => {
+  products = products.map((product) =>
+    String(product._id) === String(inventory.productId)
+      ? { ...product, stock: inventory.stock || {} }
+      : product
+  );
+  updateProductsView();
+};
+
+const startInventorySocket = () => {
+  if (inventorySocket) return;
+
+  inventorySocket = io(backendUrl);
+  inventorySocket.on("inventory:update", ({ inventory }) => {
+    if (inventory) updateProductStock(inventory);
+  });
 };
 
 export const getProductsData = async (filters = null) => {
@@ -48,6 +68,7 @@ const useProducts = () => {
 
   useEffect(() => {
     if (!productsLoaded) getProductsData();
+    startInventorySocket();
   }, []);
 
   return { products: currentProducts, setProducts, getProductsData };

@@ -1,11 +1,11 @@
 import { v2 as cloudinary } from 'cloudinary'
 import bannerModel from '../models/bannerModel.js'
 
-// ------ Config --------
+// ------ --------
 
 const bannerPages = ['home', 'new-arrivals-women', 'new-arrivals-men', 'new-arrivals-accessories', 'discover-fashion', 'collection-view-all', 'women-collection', 'men-collection', 'women-view-all', 'women-tops-shirts', 'women-bottomwear', 'women-outerwears', 'men-view-all', 'men-tops-shirts', 'men-bottomwear', 'men-outerwears', 'accessories-view-all', 'accessories-bags', 'accessories-boxers', 'accessories-hats', 'accessories-charms-stuff']
 
-// ------ Business Helpers --------
+// ------ --------
 
 const uploadBannerImage = async (file) => {
   if (!file) return ''
@@ -15,7 +15,7 @@ const uploadBannerImage = async (file) => {
   return result.secure_url
 }
 
-// ------ Public Services --------
+// ------ --------
 
 const listBannersService = async () => {
   const banners = await bannerModel.find({}).sort({ date: 1 })
@@ -52,7 +52,7 @@ const saveBannerService = async (body, file) => {
 const removeBannerService = async (page) => {
   const banner = await bannerModel.findOneAndDelete({ page })
   if (!banner) return { success: false, message: 'Banner not found' }
-  return { success: true, message: 'Banner removed' }
+  return { success: true, message: 'Banner removed', page }
 }
 
 export { listBannersService, removeBannerService, saveBannerService }
