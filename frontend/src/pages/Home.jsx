@@ -9,7 +9,7 @@ const Home = () => {
       <video className='hero-main' src={assets.hero_video} autoPlay muted loop playsInline />
 
       <section className='home-collection'>
-        <h2>DISCOVER DISTRESSED COLLECTION</h2>
+        <h2>DISCOVER DISTRESSED COLLECTIONNNNNNN</h2>
 
         <div className='home-collection-grid'>
           <Link to='/Discover-Fashion' className='home-collection-box hero-left'>
